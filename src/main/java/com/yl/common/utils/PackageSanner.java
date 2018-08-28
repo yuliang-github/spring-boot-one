@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * @author Alex
  * @since 2018/8/28 10:28
- * @des 自定义包扫描器
+ * @des 自定义包扫描器 需自己实现扫描过滤规则
  */
 public class PackageSanner {
 
@@ -23,6 +23,7 @@ public class PackageSanner {
         }
         return scanner.findCandidateComponents(pkg);
     }
+
 
     /**
      * 自定义扫描过滤器
