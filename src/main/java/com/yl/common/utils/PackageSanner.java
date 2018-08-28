@@ -1,5 +1,6 @@
 package com.yl.common.utils;
 
+import com.sun.tools.javac.util.Assert;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.type.filter.TypeFilter;
@@ -14,12 +15,19 @@ import java.util.Set;
 public class PackageSanner {
 
     public Set<BeanDefinition> doScan(String pkg,FilterProvider filterProvider){
+        Assert.checkNull(pkg);
+        Assert.checkNull(filterProvider);
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
-        for (TypeFilter typeFilter:filterProvider.addFilter()){
-            scanner.addIncludeFilter(typeFilter);
+        if(filterProvider.addFilter() != null){
+            for (TypeFilter typeFilter:filterProvider.addFilter()){
+                scanner.addIncludeFilter(typeFilter);
+            }
         }
-        for (TypeFilter typeFilter:filterProvider.subFilter()){
-            scanner.addExcludeFilter(typeFilter);
+
+        if(filterProvider.subFilter() != null){
+            for (TypeFilter typeFilter:filterProvider.subFilter()){
+                scanner.addExcludeFilter(typeFilter);
+            }
         }
         return scanner.findCandidateComponents(pkg);
     }
