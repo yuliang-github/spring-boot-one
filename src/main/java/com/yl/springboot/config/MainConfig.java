@@ -23,5 +23,4 @@ public class MainConfig {
                 return new UserServiceImpl();
         }
 
-
 }

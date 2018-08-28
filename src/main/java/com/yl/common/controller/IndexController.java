@@ -23,4 +23,8 @@ public class IndexController {
         return  ret;
     }
 
+    @GetMapping("/getMsg")
+    public String getMsg(){
+        return "欢迎光临！";
+    }
 }
