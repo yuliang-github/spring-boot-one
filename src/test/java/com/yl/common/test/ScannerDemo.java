@@ -34,7 +34,7 @@ public class ScannerDemo {
         });
 
         for (BeanDefinition bean:beans){
-            System.err.println("clazz"+bean.getBeanClassName());
+            System.err.println("clazz:"+bean.getBeanClassName());
         }
 
     }
