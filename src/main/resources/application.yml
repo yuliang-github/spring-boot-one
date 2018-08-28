@@ -5,3 +5,7 @@ server:
 spring:
   mvc:
     static-path-pattern: /**
+#  devtools:
+#    restart:
+#      enabled: true
+

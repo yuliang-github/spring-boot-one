@@ -17,14 +17,14 @@ public class IndexController {
     @GetMapping("/index")
     public JSONObject index(){
         JSONObject ret = new JSONObject();
-        ret.put("name","misss");
-        ret.put("sex","woman");
+        ret.put("name","小爱");
+        ret.put("sex","man");
         ret.put("birthday",new Date());
         return  ret;
     }
 
     @GetMapping("/getMsg")
     public String getMsg(){
-        return "欢迎光临！";
+        return "热加载Devtools";
     }
 }
