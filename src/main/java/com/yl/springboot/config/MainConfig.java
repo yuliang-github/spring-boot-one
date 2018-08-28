@@ -1,9 +1,8 @@
 package com.yl.springboot.config;
 
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScans;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
+import com.yl.common.service.UserService;
+import com.yl.common.service.impl.UserServiceImpl;
+import org.springframework.context.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -19,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 })
 public class MainConfig {
 
-
+        @Bean
+        public UserService userService(){
+                return new UserServiceImpl();
+        }
 
 }
