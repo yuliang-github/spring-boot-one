@@ -15,8 +15,8 @@ import java.util.Set;
 public class PackageSanner {
 
     public Set<BeanDefinition> doScan(String pkg,FilterProvider filterProvider){
-        Assert.checkNull(pkg);
-        Assert.checkNull(filterProvider);
+        Assert.checkNonNull(pkg);
+        Assert.checkNonNull(filterProvider);
         ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
         if(filterProvider.addFilter() != null){
             for (TypeFilter typeFilter:filterProvider.addFilter()){
