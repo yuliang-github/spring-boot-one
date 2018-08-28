@@ -16,7 +16,7 @@ import java.util.List;
  * @since 2018/8/28 14:15
  */
 @Configuration
-//@EnableWebMvc
+@EnableWebMvc
 public class MvcConfig implements WebMvcConfigurer {
 
     /**
