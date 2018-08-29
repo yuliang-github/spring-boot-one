@@ -34,7 +34,7 @@ public class ConfigDemo {
         Map<String, Object> beans = context.getBeansOfType(Object.class);
 
         beans.forEach((k,v)->{
-            System.err.println("beanName:" + k +",bean:" + v.toString());
+            System.err.println("beanName:" + k +",bean:" + v);
         });
     }
 
