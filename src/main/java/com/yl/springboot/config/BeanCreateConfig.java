@@ -42,6 +42,11 @@ public class BeanCreateConfig {
         System.err.println("user_default开始实例化");
         return new User(1,"miss");
     }
+    @Bean(value = "user_prototype")
+    public User user_prototype(){
+        System.err.println("user_prototype开始实例化");
+        return new User(3,"user_prototype");
+    }
 
     @Bean(value = "user_microsoft")
     @Conditional(value = {MicrosoftConditional.class})
