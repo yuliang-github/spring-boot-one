@@ -5,4 +5,7 @@ package com.yl.common.service;
  * @since 2018/8/28 16:09
  */
 public interface UserService {
+
+    public void get(long id);
+
 }

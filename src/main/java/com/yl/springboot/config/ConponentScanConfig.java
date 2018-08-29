@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
                 @ComponentScan.Filter(type = FilterType.ANNOTATION,classes = {RestController.class})
         })
 })
-public class MainConfig {
+public class ConponentScanConfig {
 
         @Bean
         public UserService userService(){

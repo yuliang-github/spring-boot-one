@@ -1,0 +1,9 @@
+spring-boot基础学习记录
+    1.包扫描规则参见ConponentScanConfig类
+        1.1 满足一个includeFilters即可被扫描,满足一个excludeFilters就不会被扫描
+            1.1.1 可自定义TypeFilter指定过滤规则
+        1.2 自定义包扫描器可参见PackageScanner类
+    2.springmvc自定义配置参见MvcConfig类
+        1.自定义消息转换器,易可用@bean注解进行消息扫描器注入,spring在扫描到自定义消息转换器时,则不会创建默认消息转换器
+        2.自定义interceptor
+    3.devtools使用,当修改代码时,不需要手动重启项目,加快了自测过程
