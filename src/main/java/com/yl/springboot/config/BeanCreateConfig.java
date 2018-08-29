@@ -34,7 +34,7 @@ public class BeanCreateConfig {
      * 3.@Conditional指定bean创建时需要满足的条件
      *      3.1 可自定义Condition
      *      3.2 当配置多个Condition,只有满足所有Condition时,才会创建Bean
-     * 4.ImportSelector的使用 明天再学
+     * 4.ImportSelector的使用 明天再学 lalala
      */
     @Bean(value = "user_default")
     //@Scope("prototype")
