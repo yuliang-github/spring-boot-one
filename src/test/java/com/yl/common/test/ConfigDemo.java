@@ -36,8 +36,5 @@ public class ConfigDemo {
         beans.forEach((k,v)->{
             System.err.println("beanName:" + k +",bean:" + v);
         });
-
-
     }
-
 }
