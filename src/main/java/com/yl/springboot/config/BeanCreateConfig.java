@@ -34,6 +34,8 @@ public class BeanCreateConfig {
      *      5. ImportBeanDefinitionRegistrar自定义组件注册
      *          5.1 实现ImportBeanDefinitionRegistrar接口
      *          5.2 可以通过条件导入,很灵活,参见类CustomeImportBeanDefinitionRegisty
+     *      6.FactoryBean注册组件
+     *
      */
 
     /*
@@ -42,9 +44,11 @@ public class BeanCreateConfig {
      *      2.1 "prototype"多例,ioc容器启动时不会创建,在获取时才创建
      *          每获取一次创建一次
      *      2.2 "singleton"单例,默认值,在ioc容器启动时创建
-     * 3.@Conditional指定bean创建时需要满足的条件
-     *      3.1 可自定义Condition
-     *      3.2 当配置多个Condition,只有满足所有Condition时,才会创建Bean
+     * 3.@Lazy懒加载bean
+     *      3.1 spring框架初始化的时候并不会创建bean,而是在获取的时候才创建bean
+     * 4.@Conditional指定bean创建时需要满足的条件
+     *      4.1 可自定义Condition
+     *      4.2 当配置多个Condition,只有满足所有Condition时,才会创建Bean
      */
     @Bean(value = "user_default")
     //@Scope("prototype")

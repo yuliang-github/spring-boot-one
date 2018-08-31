@@ -1,5 +1,8 @@
 package com.yl.common.test;
 
+import com.taobao.diamond.manager.DiamondManager;
+import com.taobao.diamond.manager.ManagerListener;
+import com.taobao.diamond.manager.impl.DefaultDiamondManager;
 import com.yl.common.controller.IndexController;
 import com.yl.springboot.config.BeanCreateConfig;
 import com.yl.springboot.config.ConponentScanConfig;
@@ -8,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.Map;
+import java.util.concurrent.Executor;
 
 /**
  * @author Alex
@@ -36,5 +40,26 @@ public class ConfigDemo {
         beans.forEach((k,v)->{
             System.err.println("beanName:" + k +",bean:" + v);
         });
+    }
+
+    @Test
+    public void demo_2(){
+
+        DiamondManager diamondManager = new DefaultDiamondManager("market", "service",
+            new ManagerListener() {
+                @Override
+                public Executor getExecutor() {
+                    return null;
+                }
+
+                @Override
+                public void receiveConfigInfo(String s) {
+
+                }
+            });
+
+        String info = diamondManager.getAvailableConfigureInfomation(100);
+        System.err.println(info);
+
     }
 }
