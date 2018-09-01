@@ -3,10 +3,7 @@ package com.yl.springboot.config;
 import com.yl.common.demo.Red;
 import com.yl.common.demo.Service;
 import com.yl.common.demo.User;
-import com.yl.common.demo.config.CustomeImportBeanDefinitionRegisty;
-import com.yl.common.demo.config.CustomeImportSelector;
-import com.yl.common.demo.config.MacConditional;
-import com.yl.common.demo.config.MicrosoftConditional;
+import com.yl.common.demo.config.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
@@ -35,6 +32,10 @@ public class BeanCreateConfig {
      *          5.1 实现ImportBeanDefinitionRegistrar接口
      *          5.2 可以通过条件导入,很灵活,参见类CustomeImportBeanDefinitionRegisty
      *      6.FactoryBean注册组件
+     *          6.1 在容器中注入自定义的FactoryBean
+     *          6.2 在容器中获取FactoryBean时实际上获取的是目标bean(即getObject方法的bean)
+     *          6.3 若想获取FactoryBean,需要name加一个默认前缀‘&’("&customerFactoryBean")
+     *
      *
      */
 
@@ -71,6 +72,11 @@ public class BeanCreateConfig {
     @Conditional(value = {MacConditional.class,MicrosoftConditional.class})
     public User user_lx(){
         return new User(2,"mac");
+    }
+
+    @Bean
+    public CustomerFactoryBean customerFactoryBean(){
+        return new CustomerFactoryBean();
     }
 
 }

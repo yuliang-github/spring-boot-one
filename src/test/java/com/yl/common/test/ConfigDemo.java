@@ -4,6 +4,8 @@ import com.taobao.diamond.manager.DiamondManager;
 import com.taobao.diamond.manager.ManagerListener;
 import com.taobao.diamond.manager.impl.DefaultDiamondManager;
 import com.yl.common.controller.IndexController;
+import com.yl.common.demo.config.MainConfigLifeCycle;
+import com.yl.common.utils.PackageSanner;
 import com.yl.springboot.config.BeanCreateConfig;
 import com.yl.springboot.config.ConponentScanConfig;
 import org.junit.Test;
@@ -60,6 +62,14 @@ public class ConfigDemo {
 
         String info = diamondManager.getAvailableConfigureInfomation(100);
         System.err.println(info);
+
+    }
+
+    @Test
+    public void demo_3(){
+        ApplicationContext context = new AnnotationConfigApplicationContext(MainConfigLifeCycle.class);
+
+
 
     }
 }
