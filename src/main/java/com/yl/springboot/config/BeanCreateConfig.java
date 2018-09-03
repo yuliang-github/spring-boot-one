@@ -35,8 +35,6 @@ public class BeanCreateConfig {
      *          6.1 在容器中注入自定义的FactoryBean
      *          6.2 在容器中获取FactoryBean时实际上获取的是目标bean(即getObject方法的bean)
      *          6.3 若想获取FactoryBean,需要name加一个默认前缀‘&’("&customerFactoryBean")
-     *
-     *
      */
 
     /*

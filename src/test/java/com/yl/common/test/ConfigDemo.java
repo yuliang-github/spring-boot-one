@@ -4,9 +4,9 @@ import com.taobao.diamond.manager.DiamondManager;
 import com.taobao.diamond.manager.ManagerListener;
 import com.taobao.diamond.manager.impl.DefaultDiamondManager;
 import com.yl.common.controller.IndexController;
-import com.yl.common.demo.config.MainConfigLifeCycle;
-import com.yl.common.utils.PackageSanner;
+import com.yl.common.demo.Car;
 import com.yl.springboot.config.BeanCreateConfig;
+import com.yl.springboot.config.BeanLifeCycleConfig;
 import com.yl.springboot.config.ConponentScanConfig;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -67,9 +67,14 @@ public class ConfigDemo {
 
     @Test
     public void demo_3(){
-        ApplicationContext context = new AnnotationConfigApplicationContext(MainConfigLifeCycle.class);
+        ApplicationContext context = new AnnotationConfigApplicationContext(BeanLifeCycleConfig.class);
 
+        System.err.println("IOC容器创建完成");
 
+        Car car = context.getBean("car", Car.class);
 
+        System.err.println(car);
+
+        ((AnnotationConfigApplicationContext) context).close();
     }
 }

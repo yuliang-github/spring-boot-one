@@ -11,7 +11,7 @@ import org.springframework.beans.factory.FactoryBean;
 public class CustomerFactoryBean implements FactoryBean<UserService> {
 
     @Override
-    public UserService getObject() throws Exception {
+    public UserService getObject() {
         return new UserServiceImpl();
     }
 
