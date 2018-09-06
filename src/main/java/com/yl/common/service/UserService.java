@@ -8,8 +8,8 @@ import com.yl.common.demo.User;
  */
 public interface UserService {
 
-    public User get(int id);
+    User get(int id);
 
-    public void del(int id);
+    void del(int id);
 
 }
