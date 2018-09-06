@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired(required = false)
     @Qualifier("userDao")
-    @Resource
+    //@Resource
     private UserDao userDao;
 
     @Override

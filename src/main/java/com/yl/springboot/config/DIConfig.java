@@ -1,7 +1,10 @@
 package com.yl.springboot.config;
 
+import com.yl.common.demo.UserDao;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 /**
  * @author Alex
@@ -22,6 +25,16 @@ public class DIConfig {
      *      3.@Resource注入,不支持@Primary注解
      *      4.@Inject注入,支持@Primary注解
      */
+
+    @Bean(value = "user_dao_primary")
+    @Primary
+    public UserDao userDao(){
+        UserDao userDao = new UserDao();
+        userDao.label = "primary_user_dao";
+        return userDao;
+    }
+
+
 
 }
 

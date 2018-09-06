@@ -1,5 +1,6 @@
 package com.yl.common.demo;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -10,4 +11,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository("userDao")
 public class UserDao {
+
+    @Value("default_user_dao")
+    public String label;
+
 }
