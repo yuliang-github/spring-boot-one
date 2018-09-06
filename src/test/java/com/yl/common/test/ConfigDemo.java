@@ -15,6 +15,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.core.env.Environment;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.Executor;
 
 /**
@@ -112,6 +113,10 @@ public class ConfigDemo {
         UserDao userDao = context.getBean(UserDao.class);
 
         System.err.println(userDao);
+
+        Optional<String> os = Optional.of("miss");
+
+        System.err.println(os.get());
 
         ((AnnotationConfigApplicationContext) context).close();
     }
