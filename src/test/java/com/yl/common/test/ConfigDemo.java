@@ -5,12 +5,14 @@ import com.taobao.diamond.manager.ManagerListener;
 import com.taobao.diamond.manager.impl.DefaultDiamondManager;
 import com.yl.common.controller.IndexController;
 import com.yl.common.demo.Car;
-import com.yl.springboot.config.BeanCreateConfig;
-import com.yl.springboot.config.BeanLifeCycleConfig;
-import com.yl.springboot.config.ConponentScanConfig;
+import com.yl.common.demo.Person;
+import com.yl.common.demo.UserDao;
+import com.yl.common.service.UserService;
+import com.yl.springboot.config.*;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.core.env.Environment;
 
 import java.util.Map;
 import java.util.concurrent.Executor;
@@ -74,6 +76,42 @@ public class ConfigDemo {
         Car car = context.getBean("car", Car.class);
 
         System.err.println(car);
+
+        ((AnnotationConfigApplicationContext) context).close();
+    }
+
+
+    @Test
+    public void demo_4(){
+        ApplicationContext context = new AnnotationConfigApplicationContext(ValueProfileConfig.class);
+
+        System.err.println("IOC容器创建完成");
+
+        Person person = context.getBean(Person.class);
+
+        System.err.println(person);
+
+        Environment environment = context.getEnvironment();
+
+        System.err.println(environment.getProperty("person.name"));
+
+        ((AnnotationConfigApplicationContext) context).close();
+    }
+
+
+    @Test
+    public void demo_5(){
+        ApplicationContext context = new AnnotationConfigApplicationContext(DIConfig.class);
+
+        System.err.println("IOC容器创建完成");
+
+        UserService userService = context.getBean(UserService.class);
+
+        System.err.println(userService);
+
+        UserDao userDao = context.getBean(UserDao.class);
+
+        System.err.println(userDao);
 
         ((AnnotationConfigApplicationContext) context).close();
     }
