@@ -24,6 +24,12 @@ public class DIConfig {
      *      2.@Autowired与@Qualifier("userDao")配合、根据类型与beanName注入
      *      3.@Resource注入,不支持@Primary注解
      *      4.@Inject注入,支持@Primary注解
+     *
+     *      注入方式:
+     *             1.通过属性注入
+     *             2.通过set方法注入
+     *             3.通过构造方法注入
+     *
      */
 
     @Bean(value = "user_dao_primary")

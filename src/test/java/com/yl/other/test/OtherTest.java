@@ -23,6 +23,10 @@ public class OtherTest {
 
         System.err.println(list);
 
+        list.forEach(integer -> {
+            System.err.println("V:" + integer);
+        });
+
     }
 
 }

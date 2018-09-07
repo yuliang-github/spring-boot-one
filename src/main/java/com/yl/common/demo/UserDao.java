@@ -15,4 +15,10 @@ public class UserDao {
     @Value("default_user_dao")
     public String label;
 
+    @Override
+    public String toString() {
+        return "UserDao{" +
+            "label='" + label + '\'' +
+            '}';
+    }
 }

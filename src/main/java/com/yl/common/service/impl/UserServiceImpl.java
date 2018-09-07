@@ -16,10 +16,20 @@ import javax.annotation.Resource;
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
-    @Autowired(required = false)
-    @Qualifier("userDao")
-    //@Resource
+//    @Autowired(required = false)
+//    @Qualifier("userDao")
+//    @Resource
     private UserDao userDao;
+
+    public UserServiceImpl(){
+
+    }
+
+    @Autowired
+    public UserServiceImpl(UserDao userDao){
+        System.err.println("有参构造方法创建UserServiceImpl");
+        this.userDao = userDao;
+    }
 
     @Override
     public User get(int id) {

@@ -110,9 +110,11 @@ public class ConfigDemo {
 
         System.err.println(userService);
 
-        UserDao userDao = context.getBean(UserDao.class);
+        Map<String, ? extends UserDao> userDaos = context.getBeansOfType(UserDao.class);
 
-        System.err.println(userDao);
+        userDaos.forEach((k,v)->{
+            System.err.println("beanName:" + k + " Bean:" + v);
+        });
 
         Optional<String> os = Optional.of("miss");
 

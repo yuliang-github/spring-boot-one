@@ -19,7 +19,7 @@ public class IndexController {
     public JSONObject index(){
         JSONObject ret = new JSONObject();
         ret.put("name","小爱");
-        ret.put("sex","智能机器人");
+        ret.put("sex","人工智能机器人");
         ret.put("birthday",new Date());
         return  ret;
     }
