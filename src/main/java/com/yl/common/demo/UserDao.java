@@ -19,6 +19,6 @@ public class UserDao {
     public String toString() {
         return "UserDao{" +
             "label='" + label + '\'' +
-            '}';
+            '}' + super.toString();
     }
 }
