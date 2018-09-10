@@ -29,7 +29,6 @@ public class DIConfig {
      *             1.通过属性注入
      *             2.通过set方法注入
      *             3.通过构造方法注入
-     *
      */
 
     @Bean(value = "user_dao_primary")
