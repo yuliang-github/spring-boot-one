@@ -1,5 +1,7 @@
 package com.yl.other.test;
 
+import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +28,31 @@ public class OtherTest {
         list.forEach(integer -> {
             System.err.println("V:" + integer);
         });
+
+    }
+
+    @Test
+    public void demo_1() throws InterruptedException {
+
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    System.err.println("子线程run...");
+                    Thread.sleep(1000);
+                    System.err.println("子线程end...");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+
+        t.start();
+        t.join();
+
+        System.err.println("junit线程结束了");
 
     }
 

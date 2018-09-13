@@ -16,6 +16,8 @@ import org.springframework.context.annotation.PropertySource;
 //@PropertySources(
 //    @PropertySource(value = {"classpath:tmp/demo.properties"},encoding = "UTF-8")
 //)
+// 用于导入外部XML配置文件
+//@ImportResource
 public class ValueProfileConfig {
 
     /**
@@ -35,6 +37,7 @@ public class ValueProfileConfig {
      *      1.@PropertySource加载,value可配置多个文件,encoding指定编码
      *          1.1 不可使用通配符加载配置文件
      *      2.@PropertySources配置多个@PropertySource
+     *      3.@ImportResource用于导入外部XML配置文件
      */
 
 
