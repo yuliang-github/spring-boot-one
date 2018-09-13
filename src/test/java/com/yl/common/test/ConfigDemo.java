@@ -5,6 +5,7 @@ import com.taobao.diamond.manager.ManagerListener;
 import com.taobao.diamond.manager.impl.DefaultDiamondManager;
 import com.yl.common.controller.IndexController;
 import com.yl.common.demo.Car;
+import com.yl.common.demo.MathCalculator;
 import com.yl.common.demo.Person;
 import com.yl.common.demo.UserDao;
 import com.yl.common.service.UserService;
@@ -121,5 +122,18 @@ public class ConfigDemo {
         System.err.println(os.get());
 
         ((AnnotationConfigApplicationContext) context).close();
+    }
+
+
+    @Test
+    public void demo_6(){
+        ApplicationContext context = new AnnotationConfigApplicationContext(AopConfig.class);
+
+        MathCalculator cal = context.getBean(MathCalculator.class);
+
+        int ret = cal.div(1, 0);
+
+        ((AnnotationConfigApplicationContext) context).close();
+
     }
 }
