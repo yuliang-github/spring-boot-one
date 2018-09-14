@@ -38,8 +38,11 @@ public class ValueProfileConfig {
      *          1.1 不可使用通配符加载配置文件
      *      2.@PropertySources配置多个@PropertySource
      *      3.@ImportResource用于导入外部XML配置文件
+     *
+     * 关于坏境:
+     *  @Profile("test")可选择环境
+     *
      */
-
 
 
 }
