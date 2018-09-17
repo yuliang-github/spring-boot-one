@@ -4,15 +4,14 @@ import com.taobao.diamond.manager.DiamondManager;
 import com.taobao.diamond.manager.ManagerListener;
 import com.taobao.diamond.manager.impl.DefaultDiamondManager;
 import com.yl.common.controller.IndexController;
-import com.yl.common.demo.Car;
-import com.yl.common.demo.MathCalculator;
-import com.yl.common.demo.Person;
-import com.yl.common.demo.UserDao;
+import com.yl.common.demo.*;
 import com.yl.common.service.UserService;
 import com.yl.springboot.config.*;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.event.ApplicationEventMulticaster;
 import org.springframework.core.env.Environment;
 
 import java.util.Map;
@@ -135,5 +134,25 @@ public class ConfigDemo {
 
         ((AnnotationConfigApplicationContext) context).close();
 
+    }
+
+    @Test
+    public void demo_7(){
+        ApplicationContext context = new AnnotationConfigApplicationContext(EventConfig.class);
+
+
+//        context.publishEvent(new ApplicationEvent("自定义事件") {
+//        });
+
+        ApplicationEventMulticaster eventMulticaster = context.getBean(ApplicationEventMulticaster.class);
+
+        System.err.println(eventMulticaster);
+
+        UserEvent userEvent = new UserEvent(new User(1, "miss"));
+
+        EventPublisher.publishEvent(userEvent);
+
+
+        ((AnnotationConfigApplicationContext) context).close();
     }
 }
