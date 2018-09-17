@@ -2,6 +2,9 @@ package com.yl.springboot.config;
 
 import com.yl.common.demo.CustomerEventListenner;
 import com.yl.common.demo.EventPublisher;
+import com.yl.common.demo.UserDao;
+import com.yl.common.demo.config.CustomerBeanFactoryPostProcessor;
+import com.yl.common.demo.config.CustomerBeanDefinitionRegisterPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -14,7 +17,8 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
  * @since 2018/9/17 14:48
  */
 @Configuration
-@Import(value = {CustomerEventListenner.class, EventPublisher.class})
+@Import(value = {CustomerEventListenner.class, EventPublisher.class, CustomerBeanFactoryPostProcessor.class,
+    CustomerBeanDefinitionRegisterPostProcessor.class, UserDao.class})
 public class EventConfig {
 
     /**
