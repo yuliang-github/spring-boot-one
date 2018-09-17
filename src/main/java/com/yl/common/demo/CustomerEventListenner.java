@@ -15,6 +15,8 @@ public class CustomerEventListenner {
     @Async
     public void userListenner(UserEvent userEvent){
 
+        System.err.println("当前线程:" + Thread.currentThread().getName());
+
         System.err.println("收到用户事件:" + userEvent.getSource());
 
     }

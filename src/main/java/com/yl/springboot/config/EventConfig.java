@@ -51,7 +51,7 @@ public class EventConfig {
         executor.setMaxPoolSize(20);// 最大线程池大小
         executor.setQueueCapacity(100);// 工作队列大小
         executor.setKeepAliveSeconds(60);// 线程活跃秒数
-        executor.setThreadNamePrefix("spring-event-task");// 线程名前缀
+        executor.setThreadNamePrefix("spring-event-task-");// 线程名前缀
         return executor;
     }
 
