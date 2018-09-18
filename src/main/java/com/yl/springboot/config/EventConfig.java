@@ -41,7 +41,6 @@ public class EventConfig {
      *          3.1 ApplicationContext发布context.publishEvent(new ApplicationEvent("自定义事件") {});
      *          3.2 实现ApplicationEventPublisherAware接口注入ApplicationEventPublisher
      *              然后ApplicationEventPublisher.publishEvent(event);
-     *
      */
 
     @Bean
