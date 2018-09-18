@@ -1,9 +1,9 @@
 package com.yl.springboot.config;
 
+import com.yl.common.demo.Red;
 import com.yl.common.demo.Service;
 import com.yl.common.demo.User;
-import com.yl.common.demo.config.MacConditional;
-import com.yl.common.demo.config.MicrosoftConditional;
+import com.yl.common.demo.config.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,8 @@ import org.springframework.context.annotation.Import;
  * @since 2018/8/29 14:22
  */
 @Configuration
-@Import(value = {Service.class})
+@Import(value = {Service.class, CustomeImportSelector.class, Red.class,
+    CustomeImportBeanDefinitionRegisty.class})
 public class BeanCreateConfig {
 
     /**
@@ -23,6 +24,17 @@ public class BeanCreateConfig {
      *      2.@Bean注解创建bean
      *      3.@Import(value = {Service.class})注册组件
      *          3.1 该组件必须有无参构造方法
+     *          3.2 导入的组件名称为全类名
+     *      4.ImportSelector批量导入组件
+     *          4.1 实现ImportSelector接口,返回要导入组件的全类名数组 不得返回null
+     *          4.2 参见类CustomeImportSelector
+     *      5. ImportBeanDefinitionRegistrar自定义组件注册
+     *          5.1 实现ImportBeanDefinitionRegistrar接口
+     *          5.2 可以通过条件导入,很灵活,参见类CustomeImportBeanDefinitionRegisty
+     *      6.FactoryBean注册组件
+     *          6.1 在容器中注入自定义的FactoryBean
+     *          6.2 在容器中获取FactoryBean时实际上获取的是目标bean(即getObject方法的bean)
+     *          6.3 若想获取FactoryBean,需要name加一个默认前缀‘&’("&customerFactoryBean")
      */
 
     /*
@@ -31,10 +43,11 @@ public class BeanCreateConfig {
      *      2.1 "prototype"多例,ioc容器启动时不会创建,在获取时才创建
      *          每获取一次创建一次
      *      2.2 "singleton"单例,默认值,在ioc容器启动时创建
-     * 3.@Conditional指定bean创建时需要满足的条件
-     *      3.1 可自定义Condition
-     *      3.2 当配置多个Condition,只有满足所有Condition时,才会创建Bean
-     * 4.ImportSelector的使用 明天再学
+     * 3.@Lazy懒加载bean
+     *      3.1 spring框架初始化的时候并不会创建bean,而是在获取的时候才创建bean
+     * 4.@Conditional指定bean创建时需要满足的条件
+     *      4.1 可自定义Condition
+     *      4.2 当配置多个Condition,只有满足所有Condition时,才会创建Bean
      */
     @Bean(value = "user_default")
     //@Scope("prototype")
@@ -57,6 +70,11 @@ public class BeanCreateConfig {
     @Conditional(value = {MacConditional.class,MicrosoftConditional.class})
     public User user_lx(){
         return new User(2,"mac");
+    }
+
+    @Bean
+    public CustomerFactoryBean customerFactoryBean(){
+        return new CustomerFactoryBean();
     }
 
 }

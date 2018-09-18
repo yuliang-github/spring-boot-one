@@ -2,6 +2,7 @@ package com.yl.common.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
@@ -18,7 +19,7 @@ public class IndexController {
     public JSONObject index(){
         JSONObject ret = new JSONObject();
         ret.put("name","小爱");
-        ret.put("sex","man");
+        ret.put("sex","人工智能机器人");
         ret.put("birthday",new Date());
         return  ret;
     }
@@ -26,5 +27,10 @@ public class IndexController {
     @GetMapping("/getMsg")
     public String getMsg(){
         return "热加载Devtools";
+    }
+
+    @PostMapping
+    public JSONObject getBody(){
+        return new JSONObject();
     }
 }
