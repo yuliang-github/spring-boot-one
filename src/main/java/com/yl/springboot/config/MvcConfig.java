@@ -38,6 +38,7 @@ public class MvcConfig implements WebMvcConfigurer {
         // 解决中文乱码
         List<MediaType> fastMediaTypes = new ArrayList<>();
         fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
+        fastMediaTypes.add(MediaType.valueOf("text/html;charset=UTF-8"));
         fastConverter.setSupportedMediaTypes(fastMediaTypes);
 
         FastJsonConfig config = new FastJsonConfig();
@@ -62,7 +63,7 @@ public class MvcConfig implements WebMvcConfigurer {
                 if(request.getRequestURL().toString().contains("getMsg")){
                     // 告诉浏览器使用UTF-8解码
                     response.setHeader("Content-type", "text/html;charset=UTF-8");
-//                    response.setCharacterEncoding("UTF-8");
+                    // response.setCharacterEncoding("UTF-8");
                     response.getWriter().write("没有权限访问!");
                     return false;
                 }
