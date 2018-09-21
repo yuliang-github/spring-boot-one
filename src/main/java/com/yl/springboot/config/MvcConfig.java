@@ -3,9 +3,12 @@ package com.yl.springboot.config;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.yl.common.demo.CustomerGetMapping;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -15,6 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.lang.reflect.Method;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,13 +64,23 @@ public class MvcConfig implements WebMvcConfigurer {
             @Override
             public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
                 System.err.println("请求之前url:" + request.getRequestURI());
-                if(request.getRequestURL().toString().contains("getMsg")){
-                    // 告诉浏览器使用UTF-8解码
-                    response.setHeader("Content-type", "text/html;charset=UTF-8");
-                    // response.setCharacterEncoding("UTF-8");
-                    response.getWriter().write("没有权限访问!");
-                    return false;
+                HandlerMethod handlerMethod = (HandlerMethod)handler;
+                Method method = handlerMethod.getMethod();
+                CustomerGetMapping customerGetMapping = AnnotationUtils.findAnnotation(method, CustomerGetMapping.class);
+                if(customerGetMapping != null && customerGetMapping.needSession()){
+                    System.err.println("检查会话,Url:" + request.getRequestURI());
                 }
+                //if(request.getRequestURL().toString().contains("getMsg")){
+                    // 告诉浏览器使用UTF-8解码
+                    // response.setHeader("Content-type", "text/html;charset=UTF-8");
+                    // response.setCharacterEncoding("UTF-8");
+                    // response.getWriter().write("没有权限访问!");
+                    // 请求转发
+                    // request.getRequestDispatcher("/index").forward(request, response);
+                    // 重定向
+                    // response.sendRedirect("/spring-boot/index");
+                    // return false;
+                //}
                 return true;
             }
 
