@@ -45,7 +45,10 @@ public class MvcConfig implements WebMvcConfigurer {
         converters.add(fastConverter);
     }
 
-
+    /**
+     * 使用springmvc拦截器
+     * @param registry
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 
@@ -56,6 +59,13 @@ public class MvcConfig implements WebMvcConfigurer {
             @Override
             public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
                 System.err.println("请求之前url:" + request.getRequestURI());
+                if(request.getRequestURL().toString().contains("getMsg")){
+                    // 告诉浏览器使用UTF-8解码
+                    response.setHeader("Content-type", "text/html;charset=UTF-8");
+//                    response.setCharacterEncoding("UTF-8");
+                    response.getWriter().write("没有权限访问!");
+                    return false;
+                }
                 return true;
             }
 
