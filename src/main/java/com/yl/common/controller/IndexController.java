@@ -2,6 +2,7 @@ package com.yl.common.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.yl.common.demo.CustomerGetMapping;
+import com.yl.common.demo.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,8 +36,9 @@ public class IndexController {
         return "customeGetMapping测试";
     }
 
-    @PostMapping
-    public JSONObject getBody(){
-        return new JSONObject();
+    @CustomerGetMapping(value = "/getUser")
+    public User getBody(){
+        User user = new User(1,"阿童木");
+        return user;
     }
 }

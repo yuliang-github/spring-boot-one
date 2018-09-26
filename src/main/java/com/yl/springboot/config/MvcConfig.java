@@ -4,6 +4,8 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
 import com.yl.common.demo.CustomerGetMapping;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.MediaType;
@@ -13,13 +15,13 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.lang.reflect.Method;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,4 +104,41 @@ public class MvcConfig implements WebMvcConfigurer {
         };
         registry.addInterceptor(interceptor).addPathPatterns("/*");
     }
+
+    /**
+     * 自定义过滤器
+     */
+    @Bean
+    public Filter customerFilter(){
+        Filter customerFilter = new Filter() {
+            @Override
+            public void init(FilterConfig filterConfig) throws ServletException {
+            }
+
+            @Override
+            public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+                HttpServletRequest request = (HttpServletRequest)servletRequest;
+                System.err.println("自定义过滤器,URL:" + request.getRequestURI());
+                filterChain.doFilter(servletRequest, servletResponse);
+            }
+
+            @Override
+            public void destroy() {
+
+            }
+        };
+        return customerFilter;
+    }
+
+    /**
+     * 注册过滤器
+     */
+    @Bean
+    public FilterRegistrationBean filterRegistrationBean(Filter customerFilter){
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean(customerFilter);
+        registrationBean.addUrlPatterns("/*");
+        return registrationBean;
+    }
+
+
 }
