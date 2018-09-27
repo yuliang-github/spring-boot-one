@@ -5,6 +5,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.DelayQueue;
 
 /**
  * @author Alex
@@ -68,4 +70,31 @@ public class OtherTest {
         System.err.println(Arrays.asList(companyName.split(" ")));
     }
 
+    @Test
+    public void demo_4() throws InterruptedException {
+        Random random = new Random();
+        while (true){
+            System.err.println(random.nextInt(60));
+            Thread.sleep(100);
+        }
+    }
+
+    @Test
+    public void demo_5() throws InterruptedException {
+        DelayQueue queue = new DelayQueue();
+
+        queue.offer(new DelayBean(1, 1000*30));
+
+        queue.offer(new DelayBean(2, 1000*10));
+
+        queue.offer(new DelayBean(3, 1000*20));
+
+        while (true){
+             /*
+              * 每次取出一个元素,若无元素,或无到期元素 则阻塞
+              */
+            System.err.println(queue.take());
+            System.err.println(queue);
+        }
+    }
 }
