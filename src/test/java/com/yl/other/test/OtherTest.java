@@ -7,6 +7,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.DelayQueue;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Alex
@@ -93,6 +96,25 @@ public class OtherTest {
         }
     }
 
-
+    @Test
+    public void demo_6(){
+        List<Integer> list = new ArrayList<>();
+        list.add(1);
+        list.add(3);
+        list.add(0);
+        list.add(5);
+        list.add(-1);
+        list = list.parallelStream().filter(new Predicate<Integer>() {
+            @Override
+            public boolean test(Integer value) {
+                return value.compareTo(0) <= 0;
+            }
+        }).collect(Collectors.toList());
+        System.err.println(list);
+        Stream<Integer> stream = list.parallelStream().filter(value ->
+            value.compareTo(0) >= 0
+        );
+        System.err.println(stream.count());
+    }
 
 }
