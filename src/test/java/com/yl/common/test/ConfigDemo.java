@@ -152,7 +152,6 @@ public class ConfigDemo {
 
         EventPublisher.publishEvent(userEvent);
 
-
         ((AnnotationConfigApplicationContext) context).close();
     }
 }
