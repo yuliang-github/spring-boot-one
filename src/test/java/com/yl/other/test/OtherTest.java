@@ -2,10 +2,7 @@ package com.yl.other.test;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.DelayQueue;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -115,6 +112,26 @@ public class OtherTest {
             value.compareTo(0) >= 0
         );
         System.err.println(stream.count());
+    }
+
+    @Test
+    public void demo_7(){
+        List<String> list = new ArrayList<>();
+        list.add("a");
+        list.add("c");
+        list.add("b");
+        list.add("b");
+        list.add("c");
+        list.add("a");
+
+        List<String> newList = list.stream().map(e -> e.toUpperCase()).collect(Collectors.toList());
+        System.err.println(list);
+        System.err.println(newList);
+
+        List<String> sortedList = newList.stream().distinct().sorted(String::compareTo).collect(Collectors.toList());
+        System.err.println(list);
+        System.err.println(sortedList);
+
     }
 
 }
