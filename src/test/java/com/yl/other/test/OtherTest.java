@@ -37,20 +37,15 @@ public class OtherTest {
     @Test
     public void demo_1() throws InterruptedException {
 
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    System.err.println("子线程run...");
-                    Thread.sleep(1000);
-                    System.err.println("子线程end...");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
+        Thread t = new Thread(()->{
+            try {
+                System.err.println("子线程run...");
+                Thread.sleep(1000);
+                System.err.println("子线程end...");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         });
-
 
         t.start();
         t.join();
@@ -97,4 +92,7 @@ public class OtherTest {
             System.err.println(queue);
         }
     }
+
+
+
 }
