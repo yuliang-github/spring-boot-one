@@ -112,7 +112,7 @@ public class MvcConfig implements WebMvcConfigurer {
     public Filter customerFilter(){
         Filter customerFilter = new Filter() {
             @Override
-            public void init(FilterConfig filterConfig) throws ServletException {
+            public void init(FilterConfig filterConfig) {
             }
 
             @Override
