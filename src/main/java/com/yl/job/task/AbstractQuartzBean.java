@@ -46,8 +46,7 @@ public abstract class AbstractQuartzBean<T extends Task> extends QuartzJobBean {
         if(taskDefinit == null){
             throw new RuntimeException("task object not definit in spring ioc container");
         }
-        Task task = context.getBean(taskDefinit.value(), Task.class);
         // 代理执行
-        TaskProxy.getProxy(task,context).run();
+        TaskProxy.getProxy(taskDefinit.value(),context).run();
     }
 }
