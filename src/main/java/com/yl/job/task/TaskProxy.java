@@ -17,8 +17,11 @@ public class TaskProxy {
 
     public static Task getProxy(String taskName, ApplicationContext context){
         final Task target = context.getBean(taskName, Task.class);
+
         Enhancer eh = new Enhancer();
+
         eh.setSuperclass(target.getClass());
+
         Callback[] callbacks = new Callback[]{(MethodInterceptor) (o, method, args, methodProxy) -> {
             log.info("task:" + taskName + " 开始执行");
             // 此处进行任务运行拦截
@@ -35,12 +38,16 @@ public class TaskProxy {
             log.info("task:" + taskName + " 执行结束");
             return ret;
         },NoOp.INSTANCE};
+
         eh.setCallbacks(callbacks);
+
         eh.setCallbackFilter(method -> {
             // getType方法使用第二个拦截器 即不拦截
             return method.getName().equals("getType")?1:0;
         });
+
         Object proxy = eh.create();
+
         return (Task) proxy;
     }
 
