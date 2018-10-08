@@ -29,6 +29,7 @@ public class TaskProxy {
                 log.error("task:" + taskName + " 执行异常", e);
                 throw e;
             }finally {
+                // 释放锁
 
             }
             log.info("task:" + taskName + " 执行结束");
