@@ -23,19 +23,21 @@ public class TaskProxy {
         eh.setSuperclass(target.getClass());
 
         Callback[] callbacks = new Callback[]{(MethodInterceptor) (o, method, args, methodProxy) -> {
-            log.info("task:" + taskName + " 开始执行");
+            System.err.println("task:" + taskName + " 开始执行");
             // 此处进行任务运行拦截
             Object ret;
             try {
-                ret = methodProxy.invoke(o, args);// 原方法执行
+                // invokeSuper表示执行父类方法,即原方法
+                // invoke表示执行本方法,此处会死循环调用
+                ret = methodProxy.invokeSuper(o, args);// 原方法执行
             }catch (Exception e){
-                log.error("task:" + taskName + " 执行异常", e);
+                System.err.println("task:" + taskName + " 执行异常" + e);
                 throw e;
             }finally {
                 // 释放锁
 
             }
-            log.info("task:" + taskName + " 执行结束");
+            System.err.println("task:" + taskName + " 执行结束");
             return ret;
         },NoOp.INSTANCE};
 
@@ -49,6 +51,14 @@ public class TaskProxy {
         Object proxy = eh.create();
 
         return (Task) proxy;
+    }
+
+    public static Task proxy(String taskName, ApplicationContext context){
+        Enhancer eh = new Enhancer();
+        Task task = context.getBean(taskName, Task.class);
+        eh.setSuperclass(task.getClass());
+        eh.setCallback(new TaskMethodInterceptor());
+        return (Task) eh.create();
     }
 
 }
