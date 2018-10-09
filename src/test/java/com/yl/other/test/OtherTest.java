@@ -1,5 +1,8 @@
 package com.yl.other.test;
 
+import com.yl.job.task.DemoTask;
+import com.yl.job.task.JdkProxy;
+import com.yl.job.task.Task;
 import org.junit.Test;
 
 import java.util.*;
@@ -131,6 +134,14 @@ public class OtherTest {
         List<String> sortedList = newList.stream().distinct().sorted(String::compareTo).collect(Collectors.toList());
         System.err.println(list);
         System.err.println(sortedList);
+
+    }
+
+    @Test
+    public void demo_8(){
+
+        Task task = (Task) JdkProxy.proxy(new DemoTask());
+        task.run();
 
     }
 
