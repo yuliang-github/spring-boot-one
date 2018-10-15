@@ -1,6 +1,7 @@
 package com.yl.springboot.config;
 
 import com.yl.common.demo.Car;
+import com.yl.common.demo.User;
 import com.yl.common.demo.config.CustomerBeanPocessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,5 +44,8 @@ public class BeanLifeCycleConfig {
         return car;
     }
 
-
+    @Bean
+    public User user(){
+        return new User(1, "miss");
+    }
 }

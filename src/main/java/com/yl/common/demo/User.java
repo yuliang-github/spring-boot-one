@@ -13,6 +13,7 @@ public class User implements Serializable {
     private String name;
 
     public User(int id,String name){
+        System.err.println("创建user");
         this.id = id;
         this.name = name;
     }

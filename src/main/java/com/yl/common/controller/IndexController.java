@@ -1,6 +1,8 @@
 package com.yl.common.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.yl.common.demo.CustomerGetMapping;
+import com.yl.common.demo.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,8 +31,14 @@ public class IndexController {
         return "热加载Devtools";
     }
 
-    @PostMapping
-    public JSONObject getBody(){
-        return new JSONObject();
+    @CustomerGetMapping(value = "/sessionDemo")
+    public String sessionGet(){
+        return "customeGetMapping测试";
+    }
+
+    @CustomerGetMapping(value = "/getUser")
+    public User getBody(){
+        User user = new User(1,"阿童木");
+        return user;
     }
 }

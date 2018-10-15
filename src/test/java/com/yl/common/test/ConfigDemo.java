@@ -6,12 +6,16 @@ import com.taobao.diamond.manager.impl.DefaultDiamondManager;
 import com.yl.common.controller.IndexController;
 import com.yl.common.demo.*;
 import com.yl.common.service.UserService;
+import com.yl.job.task.DemoTask;
+import com.yl.job.task.TaskComponet;
+import com.yl.job.task.TaskProxy;
 import com.yl.springboot.config.*;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.event.ApplicationEventMulticaster;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.env.Environment;
 
 import java.util.Map;
@@ -154,4 +158,16 @@ public class ConfigDemo {
 
         ((AnnotationConfigApplicationContext) context).close();
     }
+
+
+    @Test
+    public void demo_8(){
+        ApplicationContext context = new AnnotationConfigApplicationContext(JobConfig.class);
+        DemoTask task = context.getBean(DemoTask.class);
+        TaskComponet annotation = task.getClass().getAnnotation(TaskComponet.class);
+//        TaskProxy.proxy(annotation.value(), context).run();
+          TaskProxy.getProxy(annotation.value(), context).run();
+    }
+
+
 }
