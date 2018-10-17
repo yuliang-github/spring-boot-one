@@ -5,10 +5,7 @@ import com.yl.job.task.JdkProxy;
 import com.yl.job.task.Task;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.DelayQueue;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -150,7 +147,9 @@ public class OtherTest {
     @Test
     public void demo_9(){
 
+        Date now = new Date();
 
+        System.err.println(now.before(now));
 
     }
 
