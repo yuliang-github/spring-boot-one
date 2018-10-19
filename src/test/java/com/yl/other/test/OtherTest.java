@@ -1,10 +1,26 @@
 package com.yl.other.test;
 
+import com.yl.common.bean.UserBasicBean;
+import com.yl.common.mapper.UserBasicBeanMapper;
 import com.yl.job.task.DemoTask;
 import com.yl.job.task.JdkProxy;
 import com.yl.job.task.Task;
+import com.yl.springboot.config.MyBatisConfig;
+import org.apache.ibatis.executor.result.DefaultResultHandler;
+import org.apache.ibatis.mapping.Environment;
+import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.apache.ibatis.transaction.TransactionFactory;
+import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.junit.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.DelayQueue;
 import java.util.function.Predicate;
@@ -146,11 +162,70 @@ public class OtherTest {
 
     @Test
     public void demo_9(){
+        List<Integer> list = new ArrayList<>();
+        list.add(1);list.add(2);
+        list.add(3);list.add(4);
+        list.add(5);list.add(6);
 
-        Date now = new Date();
+//        for (Integer i:list){
+//            if(3 == i){
+//                list.remove(i);
+//            }
+//            System.err.println(list);
+//        }
 
-        System.err.println(now.before(now));
+//        for (int i = 0;i < list.size();i++){
+//            Integer e = list.get(i);
+//            if(e == 3){
+//                list.remove(e);
+//            }
+//            System.err.println(list);
+//        }
 
+        Iterator<Integer> iterator = list.iterator();
+        List<Integer> newList = new ArrayList<>();
+        while(iterator.hasNext()){
+            Integer e = iterator.next();
+            if(e == 3){
+                iterator.remove();
+            }
+            if(e == 3){
+                newList.add(e);
+            }
+            System.err.println(list);
+
+            System.err.println(newList);
+        }
+
+    }
+
+    @Test
+    public void demo_10() throws SQLException {
+        ApplicationContext context = new AnnotationConfigApplicationContext(MyBatisConfig.class);
+
+        DataSource dataSource = context.getBean(DataSource.class);
+
+        System.err.println(1 + ":" + dataSource);
+
+        TransactionFactory transactionFactory = new JdbcTransactionFactory();
+
+        Environment environment = new Environment("dev", transactionFactory, dataSource);
+
+        Configuration configuration = new Configuration(environment);
+
+        configuration.addMapper(UserBasicBeanMapper.class);
+
+        SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(configuration);
+
+        SqlSession session = sessionFactory.openSession();
+
+        UserBasicBeanMapper mapper = session.getMapper(UserBasicBeanMapper.class);
+
+        UserBasicBean user = mapper.get(1);
+
+        System.err.println(user);
+
+        session.close();
     }
 
 }
