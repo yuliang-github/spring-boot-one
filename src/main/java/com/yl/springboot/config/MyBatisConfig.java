@@ -1,6 +1,7 @@
 package com.yl.springboot.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
@@ -16,8 +17,8 @@ import javax.sql.DataSource;
 @PropertySources(
     @PropertySource(value = {"classpath:config/datasource.properties"},encoding = "UTF-8")
 )
-//@MapperScan(value = {"com.yl.common.mapper"})
-//@EnableTransactionManagement // 开启注解式事务驱动
+@MapperScan(value = {"com.yl.common.mapper"})
+@EnableTransactionManagement // 开启注解式事务驱动
 public class MyBatisConfig {
 
     @Bean(value = "dataSource")
@@ -46,6 +47,14 @@ public class MyBatisConfig {
         // 是否缓存preparedStatement,也就是PSCache。PSCache对支持游标的数据库性能提升巨大,比如说oracle。在mysql下建议关闭。
         ((DruidDataSource) dataSource).setPoolPreparedStatements(false);
         return dataSource;
+    }
+
+    @Bean
+    @Primary
+    public SqlSessionFactoryBean sqlSessionFactoryBean(DataSource dataSource){
+        SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+        sqlSessionFactoryBean.setDataSource(dataSource);
+        return sqlSessionFactoryBean;
     }
 
 

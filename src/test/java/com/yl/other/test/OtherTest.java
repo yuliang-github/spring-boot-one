@@ -15,6 +15,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.junit.Test;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -226,6 +227,16 @@ public class OtherTest {
         System.err.println(user);
 
         session.close();
+    }
+
+    @Test
+    public void demo_11(){
+        ApplicationContext context = new AnnotationConfigApplicationContext(MyBatisConfig.class);
+        SqlSessionFactoryBean sqlSessionFactoryBean = context.getBean(SqlSessionFactoryBean.class);
+        System.err.println(sqlSessionFactoryBean);
+        UserBasicBeanMapper mapper = context.getBean(UserBasicBeanMapper.class);
+        UserBasicBean user = mapper.get(1);
+        System.err.println(user);
     }
 
 }
