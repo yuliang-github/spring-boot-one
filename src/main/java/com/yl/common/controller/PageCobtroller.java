@@ -15,4 +15,8 @@ public class PageCobtroller {
         return "demo";
     }
 
+    @RequestMapping("/test")
+    public String testHtml(){
+        return "test";
+    }
 }
