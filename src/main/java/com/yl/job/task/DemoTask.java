@@ -14,6 +14,7 @@ public class DemoTask implements Task {
 
     @Override
     public TaskConstant.TaskType getType() {
+        System.err.println("getType执行.....");
         return null;
     }
 }

@@ -158,7 +158,7 @@ public class OtherTest {
     public void demo_8(){
         DemoTask target = new DemoTask();
         Task task = (Task) JdkProxy.proxy(target);
-        task.run();
+        task.getType();
     }
 
     @Test
