@@ -24,7 +24,7 @@ public class DemoBeanEx {
 
         private int code;
         private String des;
-        private Type(int code,String des){
+        Type(int code,String des){
             this.code = code;
             this.des = des;
         }
