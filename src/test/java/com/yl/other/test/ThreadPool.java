@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
  */
 public class ThreadPool {
 
-    private static ExecutorService es = Executors.newFixedThreadPool(5);
+    public static ExecutorService es = Executors.newFixedThreadPool(5);
 
     public static void submitTask(Runnable runnable){
 
