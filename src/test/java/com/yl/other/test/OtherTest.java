@@ -8,10 +8,7 @@ import com.yl.job.task.Task;
 import com.yl.springboot.config.MyBatisConfig;
 import org.apache.ibatis.executor.result.DefaultResultHandler;
 import org.apache.ibatis.mapping.Environment;
-import org.apache.ibatis.session.Configuration;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.apache.ibatis.session.*;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.junit.Test;
@@ -237,6 +234,28 @@ public class OtherTest {
         UserBasicBeanMapper mapper = context.getBean(UserBasicBeanMapper.class);
         UserBasicBean user = mapper.get(1);
         System.err.println(user);
+    }
+
+    @Test
+    public void demo_12(){
+        List<Integer> list = new ArrayList<>();
+        list.add(2);
+        list.add(1);
+        list.add(6);
+        list.add(4);
+        list.add(3);
+
+        System.err.println(list);
+
+        Collections.sort(list, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1 - o2 >= 0 ? -1:1;
+            }
+        });
+
+        System.err.println(list);
+
     }
 
 }
