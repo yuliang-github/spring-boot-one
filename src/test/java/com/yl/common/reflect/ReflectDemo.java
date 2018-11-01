@@ -1,6 +1,9 @@
 package com.yl.common.reflect;
 
+import org.junit.Test;
+
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 /**
  * @author Alex
@@ -27,14 +30,28 @@ public class ReflectDemo {
         }
 
         System.err.println("------------------------------------");
-
         Method[] declaredMethods = mapperInterface.getDeclaredMethods();
         for (Method declaredMethod : declaredMethods) {
-
             System.err.println(declaredMethod);
-
         }
 
+        System.err.println("------------------------------------");
+        Method[] methodArr = mapperInterface.getMethods();
+        for (Method method : methodArr) {
+            System.err.println(method.getName());
+        }
+
+    }
+
+    @Test
+    public void demo_1(){
+        Arrays.asList( UserClassEx.class.getMethods()).forEach(e -> {
+            System.err.println(e);
+        });
+
+        System.err.println("-------------------");
+
+        System.err.println(Arrays.asList(UserClassEx.class.getDeclaredMethods()));
     }
 
 }

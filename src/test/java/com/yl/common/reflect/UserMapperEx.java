@@ -8,7 +8,7 @@ import java.util.List;
  * @author Alex
  * @since 2018/10/24 14:55
  */
-public interface UserMapperEx extends UserMapper{
+public interface UserMapperEx extends UserMapper,UserMapperOne{
 
     List<User> getAll();
 

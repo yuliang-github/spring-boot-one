@@ -17,6 +17,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.sql.DataSource;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.*;
@@ -255,6 +256,24 @@ public class OtherTest {
         });
 
         System.err.println(list);
+
+    }
+
+    @Test
+    public void demo_13(){
+        List<Integer> list = new ArrayList<>();
+        list.add(2);
+        list.add(1);
+        list.add(6);
+        list.add(4);
+        list.add(3);
+
+        for (Integer i : list) {
+            if(i > 4){
+                list.add(10);
+            }
+            System.err.println(i);
+        }
 
     }
 
