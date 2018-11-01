@@ -51,7 +51,9 @@ public class ReflectDemo {
 
         System.err.println("-------------------");
 
-        System.err.println(Arrays.asList(UserClassEx.class.getDeclaredMethods()));
+        Arrays.asList(UserClassEx.class.getDeclaredMethods()).forEach(e -> {
+            System.err.println(e);
+        });
     }
 
 }
