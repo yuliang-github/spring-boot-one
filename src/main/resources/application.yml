@@ -8,4 +8,7 @@ spring:
   devtools:
     restart:
       enabled: true
-
+  profiles:
+    include: demo
+  banner:
+    charset: utf-8

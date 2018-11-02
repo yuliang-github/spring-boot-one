@@ -3,6 +3,7 @@ package com.yl.common.reflect;
 import org.junit.Test;
 
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 /**
@@ -54,6 +55,15 @@ public class ReflectDemo {
         Arrays.asList(UserClassEx.class.getDeclaredMethods()).forEach(e -> {
             System.err.println(e);
         });
+    }
+
+    @Test
+    public void demo_2(){
+        BigDecimal money = new BigDecimal(1000);
+
+        BigDecimal[] rets = money.divideAndRemainder(BigDecimal.valueOf(50));
+
+        System.err.println(Arrays.asList(rets));
     }
 
 }

@@ -1,10 +1,13 @@
 package com.yl.springboot.config;
 
 import com.yl.common.demo.UserDao;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * @author Alex
@@ -33,9 +36,11 @@ public class DIConfig {
 
     @Bean(value = "user_dao_primary")
     @Primary
-    public UserDao userDao(){
+    public UserDao userDao(@Value("${demo.user.name}") String s) throws UnsupportedEncodingException {
         UserDao userDao = new UserDao();
         userDao.label = "primary_user_dao";
+        System.err.println("外部文件引入:" + new String(s.getBytes("iso8859-1"), "UTF-8"));
+//        System.err.println("外部文件引入:" + s);
         return userDao;
     }
 
