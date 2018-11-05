@@ -6,6 +6,8 @@ import com.yl.springboot.config.MyBatisConfig;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.sql.PreparedStatement;
+
 /**
  * @author Alex
  * @since 2018/11/5 09:58
@@ -26,7 +28,6 @@ public class MybatisDemo {
         UserBasicBean userBasicBean = new UserBasicBean();
         userBasicBean.setId(1);
         userBasicBean.setName("miss");
-
         System.err.println(mapper.del(userBasicBean));
 
         System.err.println("--------------------------");
