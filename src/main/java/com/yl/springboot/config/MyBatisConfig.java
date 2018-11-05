@@ -1,6 +1,8 @@
 package com.yl.springboot.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.yl.common.mybatis.SqlLogPlugin;
+import org.apache.ibatis.plugin.Interceptor;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
@@ -54,6 +56,7 @@ public class MyBatisConfig {
     public SqlSessionFactoryBean sqlSessionFactoryBean(DataSource dataSource){
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
+        sqlSessionFactoryBean.setPlugins(new Interceptor[]{ new SqlLogPlugin()});
         return sqlSessionFactoryBean;
     }
 

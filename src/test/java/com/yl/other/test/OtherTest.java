@@ -220,7 +220,7 @@ public class OtherTest {
 
         UserBasicBeanMapper mapper = session.getMapper(UserBasicBeanMapper.class);
 
-        UserBasicBean user = mapper.get(1);
+        UserBasicBean user = mapper.get(2);
 
         System.err.println(user);
 
@@ -230,10 +230,8 @@ public class OtherTest {
     @Test
     public void demo_11(){
         ApplicationContext context = new AnnotationConfigApplicationContext(MyBatisConfig.class);
-        SqlSessionFactoryBean sqlSessionFactoryBean = context.getBean(SqlSessionFactoryBean.class);
-        System.err.println(sqlSessionFactoryBean);
         UserBasicBeanMapper mapper = context.getBean(UserBasicBeanMapper.class);
-        UserBasicBean user = mapper.get(1);
+        UserBasicBean user = mapper.get(2);
         System.err.println(user);
     }
 
