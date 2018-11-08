@@ -1,6 +1,7 @@
 package com.yl.other.test;
 
 import com.yl.common.bean.UserBasicBean;
+import com.yl.common.demo.User;
 import com.yl.common.mapper.UserBasicBeanMapper;
 import com.yl.job.task.DemoTask;
 import com.yl.job.task.JdkProxy;
@@ -8,6 +9,10 @@ import com.yl.job.task.Task;
 import com.yl.springboot.config.MyBatisConfig;
 import org.apache.ibatis.executor.result.DefaultResultHandler;
 import org.apache.ibatis.mapping.Environment;
+import org.apache.ibatis.reflection.Reflector;
+import org.apache.ibatis.reflection.factory.DefaultObjectFactory;
+import org.apache.ibatis.reflection.factory.ObjectFactory;
+import org.apache.ibatis.reflection.invoker.Invoker;
 import org.apache.ibatis.session.*;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
@@ -17,6 +22,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.sql.DataSource;
+import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -272,6 +278,24 @@ public class OtherTest {
             }
             System.err.println(i);
         }
+
+    }
+
+    @Test
+    public void demo_14() throws InvocationTargetException, IllegalAccessException {
+        ObjectFactory objectFactory = new DefaultObjectFactory();
+
+        User user = objectFactory.create(User.class);
+
+        System.err.println(user);
+
+        Reflector reflector = new Reflector(user.getClass());
+
+        Invoker invoker = reflector.getSetInvoker("name");
+
+        invoker.invoke(user, new Object[]{"北京"});
+
+        System.err.println(user);
 
     }
 

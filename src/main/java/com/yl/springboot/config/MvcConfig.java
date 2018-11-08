@@ -100,7 +100,7 @@ public class MvcConfig implements WebMvcConfigurer {
                 System.err.println("请求完成url:" + request.getRequestURI());
             }
         };
-        registry.addInterceptor(interceptor).addPathPatterns("/*");
+        registry.addInterceptor(interceptor).addPathPatterns("/");
     }
 
     /**
@@ -134,6 +134,7 @@ public class MvcConfig implements WebMvcConfigurer {
     @Bean
     public FilterRegistrationBean filterRegistrationBean(Filter customerFilter){
         FilterRegistrationBean registrationBean = new FilterRegistrationBean(customerFilter);
+        // "/*表示拦截所有,包括静态文件"
         registrationBean.addUrlPatterns("/*");
         return registrationBean;
     }
