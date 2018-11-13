@@ -1,13 +1,16 @@
 package com.yl.other.test;
 
+import com.alibaba.fastjson.JSONObject;
 import com.yl.common.bean.UserBasicBean;
 import com.yl.common.demo.User;
 import com.yl.common.mapper.UserBasicBeanMapper;
+import com.yl.demo.bean.DemoBean;
 import com.yl.job.task.DemoTask;
 import com.yl.job.task.JdkProxy;
 import com.yl.job.task.Task;
 import com.yl.springboot.config.MyBatisConfig;
 import org.apache.ibatis.executor.result.DefaultResultHandler;
+import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.reflection.Reflector;
 import org.apache.ibatis.reflection.factory.DefaultObjectFactory;
@@ -22,6 +25,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import javax.sql.DataSource;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -107,13 +112,14 @@ public class OtherTest {
         queue.offer(new DelayBean(2, 1000*10));
 
         queue.offer(new DelayBean(3, 1000*20));
-
+        int i = 4;
         while (true){
              /*
               * 每次取出一个元素,若无元素,或无到期元素 则阻塞
               */
-            System.err.println(queue.take());
             System.err.println(queue);
+            System.err.println(queue.take());
+            queue.offer(new DelayBean(i, 10000*i++));
         }
     }
 
@@ -282,7 +288,7 @@ public class OtherTest {
     }
 
     @Test
-    public void demo_14() throws InvocationTargetException, IllegalAccessException {
+    public void demo_14() throws InvocationTargetException, IllegalAccessException, IOException {
         ObjectFactory objectFactory = new DefaultObjectFactory();
 
         User user = objectFactory.create(User.class);
@@ -298,5 +304,26 @@ public class OtherTest {
         System.err.println(user);
 
     }
+
+    @Test
+    public void demo_15(){
+        DemoBean demoBean = new DemoBean();
+
+        demoBean.setId(1);
+        demoBean.setStatus(DemoBean.Status.ALL_CRASHED);
+
+        System.err.println(JSONObject.toJSONString(demoBean));
+    }
+
+
+    @Test
+    public void demo_16(){
+
+
+
+
+
+    }
+
 
 }
