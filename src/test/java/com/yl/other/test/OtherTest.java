@@ -24,6 +24,11 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.InputStream;
@@ -317,10 +322,34 @@ public class OtherTest {
 
 
     @Test
-    public void demo_16(){
+    public void demo_16() throws Exception{
 
+        Properties prop = new Properties();
+        prop.setProperty("mail.smtp.host", "smtp.exmail.qq.com");
+        prop.setProperty("mail.smtp.auth", "true");
+        Session session = Session.getInstance(prop);
 
+        MimeMessage message = new MimeMessage(session);
 
+        message.setFrom(new InternetAddress("yu.alex@51onion.com"));
+
+        message.addRecipient(Message.RecipientType.TO,new InternetAddress("824187670@qq.com"));
+
+        message.setSubject("测试邮件", "UTF-8");
+
+        message.setContent("这是一封测试邮件", "text/html;charset=UTF-8");
+
+        message.setSentDate(new Date());
+
+        message.saveChanges();
+
+        Transport transport = session.getTransport("smtp");
+
+        transport.connect("yu.alex@51onion.com", "Yl33512660716");
+
+        transport.sendMessage(message, message.getAllRecipients());
+
+        transport.close();
 
 
     }
