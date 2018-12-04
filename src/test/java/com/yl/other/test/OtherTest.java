@@ -9,32 +9,35 @@ import com.yl.job.task.DemoTask;
 import com.yl.job.task.JdkProxy;
 import com.yl.job.task.Task;
 import com.yl.springboot.config.MyBatisConfig;
-import org.apache.ibatis.executor.result.DefaultResultHandler;
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.reflection.Reflector;
 import org.apache.ibatis.reflection.factory.DefaultObjectFactory;
 import org.apache.ibatis.reflection.factory.ObjectFactory;
 import org.apache.ibatis.reflection.invoker.Invoker;
-import org.apache.ibatis.session.*;
+import org.apache.ibatis.session.Configuration;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.junit.Test;
-import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mvel2.MVEL;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
 import javax.mail.Message;
+import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import javax.mail.internet.*;
 import javax.sql.DataSource;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
-import java.math.BigDecimal;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.DelayQueue;
@@ -119,9 +122,9 @@ public class OtherTest {
         queue.offer(new DelayBean(3, 1000*20));
         int i = 4;
         while (true){
-             /*
-              * 每次取出一个元素,若无元素,或无到期元素 则阻塞
-              */
+            /*
+             * 每次取出一个元素,若无元素,或无到期元素 则阻塞
+             */
             System.err.println(queue);
             System.err.println(queue.take());
             queue.offer(new DelayBean(i, 10000*i++));
@@ -290,6 +293,7 @@ public class OtherTest {
             System.err.println(i);
         }
 
+        System.err.println(list.indexOf(2));
     }
 
     @Test
@@ -333,11 +337,24 @@ public class OtherTest {
 
         message.setFrom(new InternetAddress("yu.alex@51onion.com"));
 
-        message.addRecipient(Message.RecipientType.TO,new InternetAddress("824187670@qq.com"));
+        message.addRecipient(Message.RecipientType.TO,new InternetAddress("chenzhiling@mintq.com"));
 
-        message.setSubject("测试邮件", "UTF-8");
+        message.setSubject("带附件的测试邮件", "UTF-8");
 
-        message.setContent("这是一封测试邮件", "text/html;charset=UTF-8");
+        Multipart mp = new MimeMultipart();
+
+        MimeBodyPart part_text = new MimeBodyPart();
+        part_text.setContent("测试(带附件)!", "text/html;charset=UTF-8" );
+        mp.addBodyPart(part_text);
+
+       MimeBodyPart part_file = new MimeBodyPart();
+        DataHandler fileHandler = new DataHandler(new FileDataSource("/Users/alex/Public/auto.xlsx"));
+        part_file.setDataHandler(fileHandler);
+        part_file.setFileName(MimeUtility.encodeText(fileHandler.getName()));
+        part_file.setFileName(MimeUtility.encodeText("测试附件.xlsx"));
+        mp.addBodyPart(part_file);
+
+        message.setContent(mp);
 
         message.setSentDate(new Date());
 
@@ -353,6 +370,81 @@ public class OtherTest {
 
 
     }
+
+
+    @Test
+    public void demo_17() throws IOException {
+
+        File file = new File("/Users/alex/Public/temps/demo.txt");
+
+        PrintWriter pw = new PrintWriter(new FileOutputStream(file, true));
+
+        pw.append("天谕神座");
+
+        pw.flush();
+
+
+    }
+
+    @Test
+    public void demo_18(){
+        Map<Integer,User> userMap = new HashMap<>();
+
+        User user = new User(1, "miss");
+
+        userMap.put(1, user);
+
+        System.err.println(userMap);
+
+        user.setId(2);
+
+        System.err.println(userMap);
+
+        User user_1 = userMap.get(1);
+
+        System.err.println(user == user_1);
+
+        user_1.setId(3);
+        user_1.setName("jack");
+
+        System.err.println(userMap);
+
+        System.err.println(user);
+    }
+
+    @Test
+    public void  demo_19(){
+        Integer[] ints = new Integer[]{3,1,4,2};
+
+        Arrays.sort(ints, new Comparator<Integer>(){
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1 - o2;
+            }
+        });
+
+        //System.err.println(Arrays.asList(ints));
+
+       //System.out.println(Arrays.asList(ints).indexOf(2));
+
+        byte[] decode = Base64.getDecoder().decode("6YeR5Yqg5a6H");
+        System.err.println(new String(decode));
+
+    }
+
+    @Test
+    public void demo_20(){
+
+        String mvel = "a > b";
+
+        Map<String,Object> params = new HashMap<>();
+        params.put("a", 0.124564321);
+        params.put("b", 2.32113456);
+
+        System.err.println(MVEL.evalToBoolean(mvel, params));
+    }
+
+
 
 
 }
