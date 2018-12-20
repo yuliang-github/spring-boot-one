@@ -3,6 +3,7 @@ package com.yl.springboot.config;
 import com.yl.common.service.UserService;
 import com.yl.common.service.impl.UserServiceImpl;
 import org.springframework.context.annotation.*;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 
 /**

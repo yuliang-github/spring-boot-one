@@ -3,6 +3,8 @@ package com.yl.common.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.yl.common.demo.CustomerGetMapping;
 import com.yl.common.demo.User;
+import com.yl.common.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +18,9 @@ import java.util.Date;
  */
 @RestController
 public class IndexController {
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/index")
     public JSONObject index(){
@@ -33,6 +38,7 @@ public class IndexController {
 
     @CustomerGetMapping(value = "/sessionDemo")
     public String sessionGet(){
+        userService.updateName(2, "说什么呢");
         return "customeGetMapping测试";
     }
 

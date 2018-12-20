@@ -4,6 +4,7 @@ import com.yl.common.bean.UserBasicBean;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 /**
  * @author Alex
@@ -20,4 +21,6 @@ public interface UserBasicBeanMapper {
     @Delete("delete from T_USER_BASIC where id = #{user.id}")
     public int del(@Param("user") UserBasicBean user);
 
+    @Update("update T_USER_BASIC set name = #{name} where id = #{id}")
+    public int updateName(@Param("id") long id,@Param("name") String name);
 }

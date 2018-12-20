@@ -10,6 +10,7 @@ import com.yl.job.task.JdkProxy;
 import com.yl.job.task.Task;
 import com.yl.springboot.config.MyBatisConfig;
 import org.apache.ibatis.mapping.Environment;
+import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.reflection.Reflector;
 import org.apache.ibatis.reflection.factory.DefaultObjectFactory;
 import org.apache.ibatis.reflection.factory.ObjectFactory;
@@ -20,6 +21,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
+import org.assertj.core.util.Maps;
 import org.junit.Test;
 import org.mvel2.MVEL;
 import org.springframework.context.ApplicationContext;
@@ -37,9 +40,18 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.MessageFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.DelayQueue;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -434,17 +446,99 @@ public class OtherTest {
 
     @Test
     public void demo_20(){
+        String mvel = "(p1 == 0 && p2 == 0) ? -1 : ( p2 == 0 || (p1 / p2) >= 0.8) ? 0 : 1";
 
-        String mvel = "a > b";
+        Map<String,Object> param = Maps.newHashMap("p1", BigDecimal.valueOf(1));
+        param.put("p2", BigDecimal.valueOf(0));
 
-        Map<String,Object> params = new HashMap<>();
-        params.put("a", 0.124564321);
-        params.put("b", 2.32113456);
 
-        System.err.println(MVEL.evalToBoolean(mvel, params));
+        System.err.println(MVEL.eval(mvel, param));
+
+
+
     }
 
 
+    @Test
+    public void demo__21() throws ParseException {
+        String ex = "p1 < 2015 ? 0 : p1 == 2016 ? 1 : p1 == 2017 ? 2 : 3";
 
+        String[] keywords = "高瞻远瞩,远见卓识,独具慧眼,火眼金睛".split(",");
+
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+
+        paramMap.put("p" + 1, 2016);
+
+        System.err.println(keywords[Integer.valueOf(MVEL.evalToString(ex,paramMap))]);
+
+    }
+
+    @Test
+    public void demo_22(){
+        Date now = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+        System.err.println(calendar.get(Calendar.YEAR));
+    }
+
+    @Test
+    public void demo_23(){
+
+        String s = "独具慧眼&给精";
+
+        String[] split = s.split("&");
+
+        for (String sp: split){
+            System.err.println(sp);
+        }
+
+    }
+
+    @Test
+    public void demo_24(){
+      List<BigDecimal> list = new ArrayList<>();
+
+      list.add(BigDecimal.valueOf(100));
+      list.add(BigDecimal.valueOf(400));
+      list.add(BigDecimal.valueOf(600));
+      list.add(BigDecimal.valueOf(700));
+      list.add(BigDecimal.valueOf(200));
+
+
+        Collections.sort(list, new Comparator<BigDecimal>() {
+            @Override
+            public int compare(BigDecimal o1, BigDecimal o2) {
+                return o2.compareTo(o1);
+            }
+        });
+
+        System.err.println(list);
+    }
+
+    @Test
+    public void demo_25() throws InvocationTargetException, IllegalAccessException {
+
+        User user = new User();
+
+        Field[] fields = user.getClass().getDeclaredFields();
+
+        for (Field field : fields) {
+
+            Type genericType = field.getGenericType();
+
+            System.err.println(field.getType().getName());
+
+            System.err.println(genericType.toString().equals("int"));
+
+        }
+
+        Reflector reflector = new Reflector(user.getClass());
+
+        Invoker setInvoker = reflector.getSetInvoker("id");
+
+        setInvoker.invoke(user, new Object[]{100});
+
+        System.err.println(user);
+    }
 
 }

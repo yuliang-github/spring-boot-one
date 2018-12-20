@@ -1,13 +1,12 @@
 package com.yl.common.service.impl;
 
+import com.yl.common.bean.UserBasicBean;
 import com.yl.common.demo.User;
-import com.yl.common.demo.UserDao;
+import com.yl.common.mapper.UserBasicBeanMapper;
 import com.yl.common.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author Alex
@@ -16,20 +15,8 @@ import javax.annotation.Resource;
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
-//    @Autowired(required = false)
-//    @Qualifier("userDao")
-//    @Resource
-    private UserDao userDao;
-
-    public UserServiceImpl(){
-
-    }
-
     @Autowired
-    public UserServiceImpl(UserDao userDao){
-        System.err.println("有参构造方法创建UserServiceImpl");
-        this.userDao = userDao;
-    }
+    private UserBasicBeanMapper userBasicBeanMapper;
 
     @Override
     public User get(int id) {
@@ -42,9 +29,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String toString() {
-        return "UserServiceImpl{" +
-            "userDao=" + userDao +
-            '}';
+    @Transactional
+    public int updateName(int id, String name) {
+        UserBasicBean user = userBasicBeanMapper.get(id);
+
+        System.err.println(user);
+
+        int ret = userBasicBeanMapper.updateName(id, name);
+        System.err.println(ret);
+
+        System.err.println(user);
+        return 0;
     }
 }

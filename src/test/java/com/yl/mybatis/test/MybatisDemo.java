@@ -1,7 +1,6 @@
 package com.yl.mybatis.test;
 
-import com.yl.common.bean.UserBasicBean;
-import com.yl.common.mapper.UserBasicBeanMapper;
+import com.yl.common.service.UserService;
 import com.yl.springboot.config.MyBatisConfig;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -15,24 +14,9 @@ public class MybatisDemo {
     public static void main(String[] args) throws Exception {
         ApplicationContext context = new AnnotationConfigApplicationContext(MyBatisConfig.class);
 
-        UserBasicBeanMapper mapper = context.getBean(UserBasicBeanMapper.class);
+        UserService userService = context.getBean(UserService.class);
 
-        UserBasicBean user = mapper.get(1);
-
-        System.err.println(user);
-
-        System.err.println("--------------------------");
-
-        UserBasicBean userBasicBean = new UserBasicBean();
-        userBasicBean.setId(4);
-        userBasicBean.setName("miss");
-        System.err.println(mapper.del(userBasicBean));
-
-        System.err.println("--------------------------");
-        userBasicBean.setId(3);
-        System.err.println(mapper.select(userBasicBean));
-
-
+        userService.updateName(2, "北京啊北京");
 
     }
 

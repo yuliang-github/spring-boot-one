@@ -34,8 +34,8 @@ public class DIConfig {
      *             3.通过构造方法注入
      */
 
-    @Bean(value = "user_dao_primary")
-    @Primary
+   // @Bean(value = "user_dao_primary")
+   // @Primary
     public UserDao userDao(@Value("${demo.user.name}") String s) throws UnsupportedEncodingException {
         UserDao userDao = new UserDao();
         userDao.label = "primary_user_dao";

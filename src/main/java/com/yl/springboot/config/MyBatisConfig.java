@@ -19,6 +19,7 @@ import javax.sql.DataSource;
 @PropertySources(
     @PropertySource(value = {"classpath:config/datasource.properties"},encoding = "UTF-8")
 )
+@ComponentScan(value = {"com.yl"})
 @MapperScan(value = {"com.yl.common.mapper"})
 @EnableTransactionManagement // 开启注解式事务驱动
 public class MyBatisConfig {
