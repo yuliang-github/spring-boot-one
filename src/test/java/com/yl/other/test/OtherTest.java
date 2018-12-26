@@ -541,4 +541,15 @@ public class OtherTest {
         System.err.println(user);
     }
 
+    @Test
+    public void demo_26(){
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+
+        c.add(Calendar.DATE, 30);
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+        System.err.println(df.format(c.getTime()));
+    }
 }
