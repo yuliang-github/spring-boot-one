@@ -45,6 +45,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
+import java.security.KeyPairGenerator;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.MessageFormat;
@@ -542,14 +543,9 @@ public class OtherTest {
     }
 
     @Test
-    public void demo_26(){
-        Calendar c = Calendar.getInstance();
-        c.setTime(new Date());
+    public void demo_26() throws Exception{
 
-        c.add(Calendar.DATE, 30);
+        KeyPairGenerator.getInstance("RSA");
 
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-
-        System.err.println(df.format(c.getTime()));
     }
 }
