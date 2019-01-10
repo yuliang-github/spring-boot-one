@@ -134,6 +134,13 @@
             <version>3.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.11</version>
+        </dependency>
+
+
         <!--java mail邮件-->
         <!--<dependency >-->
             <!--<groupId >javax.mail </groupId >-->
@@ -164,6 +171,11 @@
             <version>1.3.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>1.60</version>
+        </dependency>
 
     </dependencies>
 

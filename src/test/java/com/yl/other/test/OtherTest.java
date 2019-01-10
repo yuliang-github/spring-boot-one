@@ -1,5 +1,6 @@
 package com.yl.other.test;
 
+import com.ala.common.encrypt.Base64Encrypt;
 import com.alibaba.fastjson.JSONObject;
 import com.yl.common.bean.UserBasicBean;
 import com.yl.common.demo.User;
@@ -22,6 +23,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.apache.jasper.tagplugins.jstl.core.ForEach;
+import org.apache.shiro.codec.Hex;
 import org.assertj.core.util.Maps;
 import org.junit.Test;
 import org.mvel2.MVEL;
@@ -30,6 +32,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 import javax.mail.Message;
 import javax.mail.Multipart;
 import javax.mail.Session;
@@ -46,6 +50,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.security.KeyPairGenerator;
+import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.MessageFormat;
@@ -87,7 +92,7 @@ public class OtherTest {
     @Test
     public void demo_1() throws InterruptedException {
 
-        Thread t = new Thread(()->{
+        Thread t = new Thread(() -> {
             try {
                 System.err.println("子线程run...");
                 Thread.sleep(1000);
@@ -105,7 +110,7 @@ public class OtherTest {
     }
 
     @Test
-    public void demo_3(){
+    public void demo_3() {
         String companyName = "深圳市 阿拉50    互联网金融服务有限公司";
 
         String[] split = companyName.split("\\s+");
@@ -118,7 +123,7 @@ public class OtherTest {
     @Test
     public void demo_4() throws InterruptedException {
         Random random = new Random();
-        while (true){
+        while (true) {
             System.err.println(random.nextInt(60));
             Thread.sleep(100);
         }
@@ -128,24 +133,24 @@ public class OtherTest {
     public void demo_5() throws InterruptedException {
         DelayQueue queue = new DelayQueue();
 
-        queue.offer(new DelayBean(1, 1000*30));
+        queue.offer(new DelayBean(1, 1000 * 30));
 
-        queue.offer(new DelayBean(2, 1000*10));
+        queue.offer(new DelayBean(2, 1000 * 10));
 
-        queue.offer(new DelayBean(3, 1000*20));
+        queue.offer(new DelayBean(3, 1000 * 20));
         int i = 4;
-        while (true){
+        while (true) {
             /*
              * 每次取出一个元素,若无元素,或无到期元素 则阻塞
              */
             System.err.println(queue);
             System.err.println(queue.take());
-            queue.offer(new DelayBean(i, 10000*i++));
+            queue.offer(new DelayBean(i, 10000 * i++));
         }
     }
 
     @Test
-    public void demo_6(){
+    public void demo_6() {
         List<Integer> list = new ArrayList<>();
         list.add(1);
         list.add(3);
@@ -166,7 +171,7 @@ public class OtherTest {
     }
 
     @Test
-    public void demo_7(){
+    public void demo_7() {
         List<String> list = new ArrayList<>();
         list.add("a");
         list.add("c");
@@ -186,18 +191,21 @@ public class OtherTest {
     }
 
     @Test
-    public void demo_8(){
+    public void demo_8() {
         DemoTask target = new DemoTask();
         Task task = (Task) JdkProxy.proxy(target);
         task.getType();
     }
 
     @Test
-    public void demo_9(){
+    public void demo_9() {
         List<Integer> list = new ArrayList<>();
-        list.add(1);list.add(2);
-        list.add(3);list.add(4);
-        list.add(5);list.add(6);
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.add(5);
+        list.add(6);
 
 //        for (Integer i:list){
 //            if(3 == i){
@@ -216,12 +224,12 @@ public class OtherTest {
 
         Iterator<Integer> iterator = list.iterator();
         List<Integer> newList = new ArrayList<>();
-        while(iterator.hasNext()){
+        while (iterator.hasNext()) {
             Integer e = iterator.next();
-            if(e == 3){
+            if (e == 3) {
                 iterator.remove();
             }
-            if(e == 3){
+            if (e == 3) {
                 newList.add(e);
             }
             System.err.println(list);
@@ -261,7 +269,7 @@ public class OtherTest {
     }
 
     @Test
-    public void demo_11(){
+    public void demo_11() {
         ApplicationContext context = new AnnotationConfigApplicationContext(MyBatisConfig.class);
         UserBasicBeanMapper mapper = context.getBean(UserBasicBeanMapper.class);
         UserBasicBean user = mapper.get(2);
@@ -269,7 +277,7 @@ public class OtherTest {
     }
 
     @Test
-    public void demo_12(){
+    public void demo_12() {
         List<Integer> list = new ArrayList<>();
         list.add(2);
         list.add(1);
@@ -282,7 +290,7 @@ public class OtherTest {
         Collections.sort(list, new Comparator<Integer>() {
             @Override
             public int compare(Integer o1, Integer o2) {
-                return o1 - o2 >= 0 ? -1:1;
+                return o1 - o2 >= 0 ? -1 : 1;
             }
         });
 
@@ -291,7 +299,7 @@ public class OtherTest {
     }
 
     @Test
-    public void demo_13(){
+    public void demo_13() {
         List<Integer> list = new ArrayList<>();
         list.add(2);
         list.add(1);
@@ -300,7 +308,7 @@ public class OtherTest {
         list.add(3);
 
         for (Integer i : list) {
-            if(i > 4){
+            if (i > 4) {
                 list.add(10);
             }
             System.err.println(i);
@@ -328,7 +336,7 @@ public class OtherTest {
     }
 
     @Test
-    public void demo_15(){
+    public void demo_15() {
         DemoBean demoBean = new DemoBean();
 
         demoBean.setId(1);
@@ -339,7 +347,7 @@ public class OtherTest {
 
 
     @Test
-    public void demo_16() throws Exception{
+    public void demo_16() throws Exception {
 
         Properties prop = new Properties();
         prop.setProperty("mail.smtp.host", "smtp.exmail.qq.com");
@@ -350,17 +358,17 @@ public class OtherTest {
 
         message.setFrom(new InternetAddress("yu.alex@51onion.com"));
 
-        message.addRecipient(Message.RecipientType.TO,new InternetAddress("chenzhiling@mintq.com"));
+        message.addRecipient(Message.RecipientType.TO, new InternetAddress("chenzhiling@mintq.com"));
 
         message.setSubject("带附件的测试邮件", "UTF-8");
 
         Multipart mp = new MimeMultipart();
 
         MimeBodyPart part_text = new MimeBodyPart();
-        part_text.setContent("测试(带附件)!", "text/html;charset=UTF-8" );
+        part_text.setContent("测试(带附件)!", "text/html;charset=UTF-8");
         mp.addBodyPart(part_text);
 
-       MimeBodyPart part_file = new MimeBodyPart();
+        MimeBodyPart part_file = new MimeBodyPart();
         DataHandler fileHandler = new DataHandler(new FileDataSource("/Users/alex/Public/auto.xlsx"));
         part_file.setDataHandler(fileHandler);
         part_file.setFileName(MimeUtility.encodeText(fileHandler.getName()));
@@ -400,8 +408,8 @@ public class OtherTest {
     }
 
     @Test
-    public void demo_18(){
-        Map<Integer,User> userMap = new HashMap<>();
+    public void demo_18() {
+        Map<Integer, User> userMap = new HashMap<>();
 
         User user = new User(1, "miss");
 
@@ -426,10 +434,10 @@ public class OtherTest {
     }
 
     @Test
-    public void  demo_19(){
-        Integer[] ints = new Integer[]{3,1,4,2};
+    public void demo_19() {
+        Integer[] ints = new Integer[]{3, 1, 4, 2};
 
-        Arrays.sort(ints, new Comparator<Integer>(){
+        Arrays.sort(ints, new Comparator<Integer>() {
             @Override
             public int compare(Integer o1, Integer o2) {
                 return o1 - o2;
@@ -438,7 +446,7 @@ public class OtherTest {
 
         //System.err.println(Arrays.asList(ints));
 
-       //System.out.println(Arrays.asList(ints).indexOf(2));
+        //System.out.println(Arrays.asList(ints).indexOf(2));
 
         byte[] decode = Base64.getDecoder().decode("6YeR5Yqg5a6H");
         System.err.println(new String(decode));
@@ -446,15 +454,14 @@ public class OtherTest {
     }
 
     @Test
-    public void demo_20(){
+    public void demo_20() {
         String mvel = "(p1 == 0 && p2 == 0) ? -1 : ( p2 == 0 || (p1 / p2) >= 0.8) ? 0 : 1";
 
-        Map<String,Object> param = Maps.newHashMap("p1", BigDecimal.valueOf(1));
+        Map<String, Object> param = Maps.newHashMap("p1", BigDecimal.valueOf(1));
         param.put("p2", BigDecimal.valueOf(0));
 
 
         System.err.println(MVEL.eval(mvel, param));
-
 
 
     }
@@ -470,12 +477,12 @@ public class OtherTest {
 
         paramMap.put("p" + 1, 2016);
 
-        System.err.println(keywords[Integer.valueOf(MVEL.evalToString(ex,paramMap))]);
+        System.err.println(keywords[Integer.valueOf(MVEL.evalToString(ex, paramMap))]);
 
     }
 
     @Test
-    public void demo_22(){
+    public void demo_22() {
         Date now = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(now);
@@ -483,27 +490,27 @@ public class OtherTest {
     }
 
     @Test
-    public void demo_23(){
+    public void demo_23() {
 
         String s = "独具慧眼&给精";
 
         String[] split = s.split("&");
 
-        for (String sp: split){
+        for (String sp : split) {
             System.err.println(sp);
         }
 
     }
 
     @Test
-    public void demo_24(){
-      List<BigDecimal> list = new ArrayList<>();
+    public void demo_24() {
+        List<BigDecimal> list = new ArrayList<>();
 
-      list.add(BigDecimal.valueOf(100));
-      list.add(BigDecimal.valueOf(400));
-      list.add(BigDecimal.valueOf(600));
-      list.add(BigDecimal.valueOf(700));
-      list.add(BigDecimal.valueOf(200));
+        list.add(BigDecimal.valueOf(100));
+        list.add(BigDecimal.valueOf(400));
+        list.add(BigDecimal.valueOf(600));
+        list.add(BigDecimal.valueOf(700));
+        list.add(BigDecimal.valueOf(200));
 
 
         Collections.sort(list, new Comparator<BigDecimal>() {
@@ -543,9 +550,102 @@ public class OtherTest {
     }
 
     @Test
-    public void demo_26() throws Exception{
+    public void demo_26() throws Exception {
 
-        KeyPairGenerator.getInstance("RSA");
+        KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+
+        keyGenerator.init(128);
+
+        SecretKey secretKey = keyGenerator.generateKey();
+
+        byte[] encoded = secretKey.getEncoded();
+
+        String s = Hex.encodeToString(encoded);
+
+        System.err.println(org.apache.shiro.codec.Base64.encodeToString(s.getBytes()));
+
+        System.err.println(byteToHexString(encoded));
+    }
+
+
+    public static String byteToHexString(byte[] bytes) {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < bytes.length; i++) {
+            String strHex = Integer.toHexString(bytes[i]);
+            if (strHex.length() > 3) {
+                sb.append(strHex.substring(6));
+            } else {
+                if (strHex.length() < 2) {
+                    sb.append("0" + strHex);
+                } else {
+                    sb.append(strHex);
+                }
+            }
+        }
+        return sb.toString();
+    }
+
+    @Test
+    public void demo_27(){
+        String id = "421127199309084300";
+        Calendar c = Calendar.getInstance();
+        c.setTime(new Date());
+        System.err.println(c.get(Calendar.YEAR));
+
+
+        int year = Integer.parseInt(id.substring(6, 10));
+
+        System.err.println(c.get(Calendar.YEAR)-year);
+    }
+
+
+    @Test
+    public void demo_28(){
+       JSONObject json = new JSONObject();
+       json.put("name", "miss");
+
+       System.err.println(json);
+
+       json.put("name", "zack");
+
+        System.err.println(json);
+    }
+
+    @Test
+    public void demo_29() throws Exception{
+        KeyGenerator kg = KeyGenerator.getInstance("AES");
+        kg.init(128);
+        //要生成多少位，只需要修改这里即可128, 192或256
+        SecretKey sk = kg.generateKey();
+        byte[] b = sk.getEncoded();
+        String s = byteToHexString(b);
+        System.out.println(s);
+        System.out.println("十六进制密钥长度为"+s.length());
+        System.out.println("二进制密钥的长度为"+s.length()*4);
+
+    }
+
+    @Test
+    public void demo_30()throws Exception{
+
+
+        String s = "abc";
+
+        byte[] bytes = s.getBytes("utf-8");
+
+
+        char[] hexChars = org.apache.commons.codec.binary.Hex.encodeHex(bytes);
+
+        String hexStr = byteToHexString(bytes);
+
+        System.err.println(hexStr);
+
+
+    }
+
+    @Test
+    public void demo_31(){
+        System.err.println(new String(Base64.getDecoder().decode("56eL")));
 
     }
 }
