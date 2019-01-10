@@ -1,6 +1,10 @@
 package com.ala.common.encrypt;
 
 import org.apache.commons.codec.binary.Hex;
+import org.bouncycastle.crypto.Digest;
+import org.bouncycastle.crypto.digests.MD5Digest;
+import org.bouncycastle.crypto.macs.HMac;
+import org.bouncycastle.crypto.params.KeyParameter;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.Mac;
@@ -41,7 +45,7 @@ public class HMACEncrypt {
     public static void main(String[] args) throws Exception{
         String src = "password";
         jdkHmacMd5(src);
-
+        bcHmacMd5(src);
 
     }
 
@@ -50,14 +54,15 @@ public class HMACEncrypt {
      * @param src
      */
     public static void jdkHmacMd5(String src) throws Exception{
-        KeyGenerator keyGenerator = KeyGenerator.getInstance("HmacMD5");
+       // KeyGenerator keyGenerator = KeyGenerator.getInstance("HmacMD5");
 
-        SecretKey secretKey = keyGenerator.generateKey();
+        // SecretKey secretKey = keyGenerator.generateKey();
 
-        byte[] keyEncoded = secretKey.getEncoded();//获得密钥
+       // byte[] keyEncoded = secretKey.getEncoded();//获得密钥
 
         //还原密钥
-        SecretKey restoreKey = new SecretKeySpec(keyEncoded,"HmacMD5");
+        byte[] key = Hex.decodeHex(new char[]{'1', '2', '3', '4', 'a', 'b', 'c', 'd'});
+        SecretKey restoreKey = new SecretKeySpec(key,"HmacMD5");
         // 实例化mac
         Mac mac = Mac.getInstance(restoreKey.getAlgorithm());
         // 初始化Mac
@@ -65,6 +70,22 @@ public class HMACEncrypt {
         byte[] hmacMd5Bytes = mac.doFinal(src.getBytes());
 
         System.err.println("jdk hmacmd5加密:" + Hex.encodeHexString(hmacMd5Bytes));
+    }
+
+
+    public static void bcHmacMd5(String src){
+        HMac hmac = new HMac(new MD5Digest());
+
+        hmac.init(new KeyParameter(org.bouncycastle.util.encoders.Hex.decode("1234abcd")));
+
+        hmac.update(src.getBytes(), 0,src.getBytes().length);
+
+        byte[] bytes = new byte[hmac.getMacSize()];
+
+        hmac.doFinal(bytes, 0);
+
+        System.err.println("bc Hmac加密:" + org.bouncycastle.util.encoders.Hex.toHexString(bytes));
+
     }
 
 }

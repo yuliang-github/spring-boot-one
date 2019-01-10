@@ -1,6 +1,5 @@
 package com.yl.encrypt.test;
 
-import com.ala.common.encrypt.Base64Encrypt;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 import org.junit.Test;
@@ -62,6 +61,20 @@ public class EncryptDemo {
         byte[] encoded = secretKey.getEncoded();
 
         System.err.println(Base64.encodeBase64String(encoded).substring(0, 16));
+
+    }
+
+    @Test
+    public void demo_4() throws Exception{
+        String s = "a";
+
+        String hexStr = Hex.encodeHexString(s.getBytes());
+
+        System.err.println(hexStr);
+
+        byte[] bytes = Hex.decodeHex(hexStr);
+
+        byte[] bytes1 = hex2byte(hexStr.getBytes());
 
     }
 }
