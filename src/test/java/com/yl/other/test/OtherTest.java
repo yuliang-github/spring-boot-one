@@ -645,7 +645,17 @@ public class OtherTest {
 
     @Test
     public void demo_31(){
-        System.err.println(new String(Base64.getDecoder().decode("56eL")));
-
+        String humpName = "earliestCardActive";
+        StringBuilder sb = new StringBuilder();
+        char[] chars = humpName.toCharArray();
+        for(int i = 0;i < chars.length;i++){
+            char c = chars[i];
+            if(Character.isUpperCase(c)){
+                sb.append("_").append(Character.toLowerCase(c));
+            }else{
+                sb.append(c);
+            }
+        }
+        System.err.println(sb.toString());
     }
 }

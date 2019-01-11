@@ -14,11 +14,23 @@ import javax.crypto.SecretKey;
 public class EncryptDemo {
 
     public static byte[] hex2byte(byte[] b) {
-        if ((b.length % 2) != 0)
+        if ((b.length & 1) != 0)
             throw new IllegalArgumentException("长度不是偶数");
         byte[] b2 = new byte[b.length / 2];
         for (int n = 0; n < b.length; n += 2) {
             String item = new String(b, n, 2);
+            b2[n / 2] = (byte) Integer.parseInt(item, 16);
+        }
+        return b2;
+    }
+
+    public static byte[] hex2byte(String hexStr) {
+        if (hexStr.length() % 2 != 0){
+            throw new IllegalArgumentException("长度不是偶数");
+        }
+        byte[] b2 = new byte[hexStr.length() / 2];
+        for (int n = 0; n < hexStr.length(); n += 2) {
+            String item = hexStr.substring(n, n + 2);
             b2[n / 2] = (byte) Integer.parseInt(item, 16);
         }
         return b2;
@@ -46,7 +58,7 @@ public class EncryptDemo {
             "个人以为这一句可以称得上是最狂，并且是那种完全有实力的狂，令很多人不得不服的狂。", key);
         System.err.println(hexString);
 
-        System.err.println(AESUtils.decryptToString(hexString, key));
+        System.err.println(AESUtils.decryptToString(hexString, "12345"));
 
     }
 
@@ -66,15 +78,17 @@ public class EncryptDemo {
 
     @Test
     public void demo_4() throws Exception{
-        String s = "a";
+        String s = "abc";
 
         String hexStr = Hex.encodeHexString(s.getBytes());
 
         System.err.println(hexStr);
 
-        byte[] bytes = Hex.decodeHex(hexStr);
+        byte[] bytes_1 = Hex.decodeHex(hexStr);
 
-        byte[] bytes1 = hex2byte(hexStr.getBytes());
+        byte[] bytes_2 = hex2byte(hexStr.getBytes());
+
+        byte[] bytes_3 = hex2byte(hexStr);
 
     }
 }
