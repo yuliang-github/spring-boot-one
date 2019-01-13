@@ -58,7 +58,7 @@ public class EncryptDemo {
             "个人以为这一句可以称得上是最狂，并且是那种完全有实力的狂，令很多人不得不服的狂。", key);
         System.err.println(hexString);
 
-        System.err.println(AESUtils.decryptToString(hexString, "12345"));
+        System.err.println(AESUtils.decryptToString(hexString,key));
 
     }
 
@@ -91,4 +91,9 @@ public class EncryptDemo {
         byte[] bytes_3 = hex2byte(hexStr);
 
     }
+
+
+
+
+
 }
