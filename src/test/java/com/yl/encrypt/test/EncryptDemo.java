@@ -6,6 +6,9 @@ import org.junit.Test;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author Alex
@@ -48,14 +51,9 @@ public class EncryptDemo {
 
     @Test
     public void demo_2(){
-        String key = "1drsmP6ndqpARrLa";
-        String hexString = AESUtils.encryptToHexString("主要成就：创造了古代浪漫主义文学高峰、" +
-            "歌行体和七绝达到后人难及的高度。吴江诗词网提供“李白”最诗歌详实的注译和最权威的点评" +
-            ",愿为古诗文爱好者提供详实的参考。独坐敬亭山 众鸟高飞尽,孤云独去闲。相看两不厌,只有敬亭山。 " +
-            "夜思 床前明月光, 疑是地上霜。 举头望明月, 低头思故乡。《江上吟 》是李白的一首诗作，" +
-            "以其中一句“兴酣落笔摇五岳，诗成笑傲凌沧洲”广为流传，" +
-            "更是被认为是李白最狂的诗句之一。不过若是站在李白于诗歌的成就上，" +
-            "个人以为这一句可以称得上是最狂，并且是那种完全有实力的狂，令很多人不得不服的狂。", key);
+        String key = "nbDLUw1eqV53HPwT";
+        String hexString = AESUtils.encryptToHexString("{\"balance_loan_ratio\":\"0.1001\",\"card_query_freq\":1,\"card_query_freq_120_level\":2,\"credit_card_num_to_inquiry_ratio_2Y\":\"2.0\",\"credit_usage_active\":\"0.2\",\"earliest_card_active\":\"1\",\"employment_history\":\"9-12\",\"latest_card_active\":\"90\",\"latestLoan\":\"10万\",\"loan_num_to_query_2Y\":\"10\",\"loan_query_freq\":9,\"total_query_freq\":10,\"total_query_freq_120\":2,\"total_query_freq_90\":1,\"unsettled_loan_num\":3,\"pre_loan_debt_ratio\":\"0.3\",\"longest_car_ownership\":\"NA\",\"latest_loan\":\"100\",\"loan_status_1m\":10}"
+            , key);
         System.err.println(hexString);
 
         System.err.println(AESUtils.decryptToString(hexString,key));
@@ -93,7 +91,13 @@ public class EncryptDemo {
     }
 
 
+    @Test
+    public void demo_5(){
 
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        System.err.println(df.format(new Date(1547693229360L)));
+    }
 
 
 }
