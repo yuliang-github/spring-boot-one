@@ -1,6 +1,5 @@
 package com.yl.other.test;
 
-import com.ala.common.encrypt.Base64Encrypt;
 import com.alibaba.fastjson.JSONObject;
 import com.yl.common.bean.UserBasicBean;
 import com.yl.common.demo.User;
@@ -11,7 +10,6 @@ import com.yl.job.task.JdkProxy;
 import com.yl.job.task.Task;
 import com.yl.springboot.config.MyBatisConfig;
 import org.apache.ibatis.mapping.Environment;
-import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.reflection.Reflector;
 import org.apache.ibatis.reflection.factory.DefaultObjectFactory;
 import org.apache.ibatis.reflection.factory.ObjectFactory;
@@ -22,7 +20,6 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.apache.shiro.codec.Hex;
 import org.assertj.core.util.Maps;
 import org.junit.Test;
@@ -46,18 +43,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
-import java.security.KeyPairGenerator;
-import java.security.SecureRandom;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.MessageFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.DelayQueue;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -601,12 +591,12 @@ public class OtherTest {
 
     @Test
     public void demo_28(){
-       JSONObject json = new JSONObject();
-       json.put("name", "miss");
+        JSONObject json = new JSONObject();
+        json.put("name", "miss");
 
-       System.err.println(json);
+        System.err.println(json);
 
-       json.put("name", "zack");
+        json.put("name", "zack");
 
         System.err.println(json);
     }
@@ -659,7 +649,10 @@ public class OtherTest {
         System.err.println(sb.toString());
     }
 
-
+    @Test
+    public void demo_32(){
+        System.err.println(new java.lang.String(Base64.getDecoder().decode("56Wl")));
+    }
 
 
 
