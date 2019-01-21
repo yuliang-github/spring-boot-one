@@ -52,7 +52,7 @@ public class EncryptDemo {
     @Test
     public void demo_2(){
         String key = "nbDLUw1eqV53HPwT";
-        String hexString = AESUtils.encryptToHexString("{\"balance_loan_ratio\":\"0.1001\",\"card_query_freq\":1,\"card_query_freq_120_level\":2,\"credit_card_num_to_inquiry_ratio_2Y\":\"2.0\",\"credit_usage_active\":\"0.2\",\"earliest_card_active\":\"1\",\"employment_history\":\"9-12\",\"latest_card_active\":\"90\",\"latestLoan\":\"10万\",\"loan_num_to_query_2Y\":\"10\",\"loan_query_freq\":9,\"total_query_freq\":10,\"total_query_freq_120\":2,\"total_query_freq_90\":1,\"unsettled_loan_num\":3,\"pre_loan_debt_ratio\":\"0.3\",\"longest_car_ownership\":\"NA\",\"latest_loan\":\"100\",\"loan_status_1m\":10}"
+        String hexString = AESUtils.encryptToHexString(""
             , key);
         System.err.println(hexString);
 

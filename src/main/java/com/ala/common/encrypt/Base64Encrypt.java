@@ -30,7 +30,7 @@ public class Base64Encrypt {
 
 
     public static void main(String[] args) throws Exception{
-        String src = "S";
+        String src = "-2";
 
         jdkBase64(src);
 
