@@ -22,7 +22,7 @@ public class IndexController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/index")
+    @GetMapping("/")
     public JSONObject index(){
         JSONObject ret = new JSONObject();
         ret.put("name","小爱");
@@ -44,6 +44,12 @@ public class IndexController {
 
     @CustomerGetMapping(value = "/getUser")
     public User getBody(){
+        User user = new User(1,"阿童木");
+        return user;
+    }
+
+    @CustomerGetMapping(value = "/spring-boot/demo")
+    public User springboot(){
         User user = new User(1,"阿童木");
         return user;
     }

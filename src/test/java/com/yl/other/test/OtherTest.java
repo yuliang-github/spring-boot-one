@@ -651,7 +651,7 @@ public class OtherTest {
 
     @Test
     public void demo_32(){
-        System.err.println(new java.lang.String(Base64.getDecoder().decode("56Wl")));
+        System.err.println("data:image".substring(0, 4));
     }
 
 
