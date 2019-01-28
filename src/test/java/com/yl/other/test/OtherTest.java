@@ -651,7 +651,9 @@ public class OtherTest {
 
     @Test
     public void demo_32(){
-        System.err.println("data:image".substring(0, 4));
+
+
+
     }
 
 
