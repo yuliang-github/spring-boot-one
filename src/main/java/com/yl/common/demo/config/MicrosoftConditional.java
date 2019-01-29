@@ -1,6 +1,5 @@
 package com.yl.common.demo.config;
 
-import com.yl.common.demo.User;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.Condition;

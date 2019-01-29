@@ -13,10 +13,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -51,13 +48,6 @@ public class MvcConfig implements WebMvcConfigurer {
         FastJsonConfig config = new FastJsonConfig();
         config.setSerializerFeatures(SerializerFeature.PrettyFormat);
         converters.add(fastConverter);
-    }
-
-    // 配置视图解析器
-    @Override
-    public void configureViewResolvers(ViewResolverRegistry registry) {
-        // 配置前缀和后缀
-        registry.jsp("/webapp/WEB-INF/jsp/", ".jsp");
     }
 
     /**
@@ -110,7 +100,10 @@ public class MvcConfig implements WebMvcConfigurer {
                 System.err.println("请求完成url:" + request.getRequestURI());
             }
         };
-        registry.addInterceptor(interceptor).addPathPatterns("/*");
+        /**
+         * 此处的UrlParttern是在controller里面定义的路径,而不是从contextPath开始
+         */
+        registry.addInterceptor(interceptor).addPathPatterns("/");
     }
 
     /**
@@ -144,9 +137,21 @@ public class MvcConfig implements WebMvcConfigurer {
     @Bean
     public FilterRegistrationBean filterRegistrationBean(Filter customerFilter){
         FilterRegistrationBean registrationBean = new FilterRegistrationBean(customerFilter);
+        // "/*表示拦截所有,包括静态文件"
         registrationBean.addUrlPatterns("/*");
         return registrationBean;
     }
 
+    // 配置静态资源映射
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/static-web-inf/**").addResourceLocations("/WEB-INF/static/");
+    }
 
+    // 配置视图解析器
+    @Override
+    public void configureViewResolvers(ViewResolverRegistry registry) {
+        registry.jsp("/WEB-INF/jsp/", ".jsp");
+    }
 }

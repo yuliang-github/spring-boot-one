@@ -12,4 +12,5 @@ public interface UserService {
 
     void del(int id);
 
+    int updateName(int id,String name);
 }
