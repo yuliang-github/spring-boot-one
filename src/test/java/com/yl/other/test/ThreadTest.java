@@ -1,5 +1,7 @@
 package com.yl.other.test;
 
+import org.junit.Test;
+
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
@@ -35,6 +37,29 @@ public class ThreadTest {
         } catch (Exception e){
             System.err.println(e);
         }
+    }
+
+
+    @Test
+    public void demo() throws Exception{
+
+        Thread t = new Thread(() -> {
+            System.err.println("子线程进来了");
+            try {
+                Thread.sleep(10*1000);
+            }catch (Exception e){
+
+            }
+            System.err.println("子线程结束了");
+        });
+
+        t.start();
+        System.err.println("父线程开始等待");
+        t.join();
+        System.err.println("父线程等待结束");
+
+        int i = 10_000;
+
     }
 
 }

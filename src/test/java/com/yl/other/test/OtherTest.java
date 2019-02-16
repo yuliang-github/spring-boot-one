@@ -26,6 +26,7 @@ import org.junit.Test;
 import org.mvel2.MVEL;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import sun.misc.Launcher;
 
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
@@ -45,6 +46,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
+import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.*;
@@ -652,7 +654,11 @@ public class OtherTest {
     @Test
     public void demo_32(){
 
+        URL[] urLs = Launcher.getBootstrapClassPath().getURLs();
 
+        for (URL urL : urLs) {
+            System.err.println(urL.getPath());
+        }
 
     }
 
