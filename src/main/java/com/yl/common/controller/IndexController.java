@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.yl.common.demo.CustomerGetMapping;
 import com.yl.common.demo.User;
 import com.yl.common.service.UserService;
+import com.yl.exception.common.MvcException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,4 +54,16 @@ public class IndexController {
         User user = new User(1,"阿童木");
         return user;
     }
+
+    @CustomerGetMapping(value = "/spring-boot/exception")
+    public User springbootException(int type){
+        //User user = new User(1,"阿童木");
+        if(type == 0){
+            throw new RuntimeException("未知异常");
+        }else{
+            throw new MvcException("自定义错误返回");
+        }
+        //return user;
+    }
+
 }
