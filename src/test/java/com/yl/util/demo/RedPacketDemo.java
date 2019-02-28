@@ -162,7 +162,6 @@ public class RedPacketDemo {
 
         client.shutdown();
 
-
     }
 
 }

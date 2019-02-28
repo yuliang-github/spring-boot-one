@@ -1,5 +1,9 @@
 package com.yl.demo;
 
+import org.junit.Test;
+
+import java.math.BigDecimal;
+
 /**
  * @author Alex
  * @since 2019/1/17 16:51
@@ -18,6 +22,19 @@ public class Demo {
             String bs = Integer.toBinaryString(i);
             String tString = bs.substring(1);
             System.err.println(tString);
+        }
+    }
+
+    @Test
+    public void demo_1(){
+        BigDecimal b = new BigDecimal(9);
+
+        BigDecimal a = new BigDecimal(10);
+
+        BigDecimal[] rets = b.divideAndRemainder(a);
+
+        for (int i = 0; i < rets.length; i++) {
+            System.err.println(i + ":" + rets[i]);
         }
     }
 
