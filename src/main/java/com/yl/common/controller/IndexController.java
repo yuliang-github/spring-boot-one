@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Alex
@@ -66,4 +68,10 @@ public class IndexController {
         //return user;
     }
 
+    @CustomerGetMapping(value = "/spring-boot/getList")
+    public List<Integer> getList(){
+        List<Integer> list = new ArrayList<>();
+        list.add(1);list.add(2);list.add(3);list.add(4);
+        return list.subList(0, 2);
+    }
 }
