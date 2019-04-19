@@ -6,6 +6,7 @@ import com.yl.common.demo.User;
 import com.yl.common.service.UserService;
 import com.yl.exception.common.MvcException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,9 +26,13 @@ public class IndexController {
     @Autowired
     private UserService userService;
 
+    @Value("${server.port}")
+    private int port;
+
     @GetMapping("/")
     public JSONObject index(){
         JSONObject ret = new JSONObject();
+        ret.put("port",port);
         ret.put("name","小爱");
         ret.put("sex","人工智能机器人");
         ret.put("birthday",new Date());
