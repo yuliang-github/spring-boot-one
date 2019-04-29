@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.yl.common.demo.CustomerGetMapping;
 import com.yl.common.demo.User;
 import com.yl.common.service.UserService;
+import com.yl.common.service.impl.ImplService;
 import com.yl.exception.common.MvcException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,6 +26,8 @@ public class IndexController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private ImplService implService;
 
     @Value("${server.port}")
     private int port;
@@ -78,5 +81,11 @@ public class IndexController {
         List<Integer> list = new ArrayList<>();
         list.add(1);list.add(2);list.add(3);list.add(4);
         return list.subList(0, 2);
+    }
+
+    @CustomerGetMapping(value = "/spring-boot/auto")
+    public String auto(){
+        implService.print();
+        return "auto";
     }
 }
