@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
  * @since 2019/4/29 16:20
  */
 @Component
-public class ImplService extends Service<UserServiceImpl2>{
+public class ImplService extends Service<UserServiceImpl>{
 
 
 

@@ -9,19 +9,19 @@ import org.springframework.stereotype.Component;
  * @since 2019/4/29 16:17
  */
 @Component
-public class UserServiceImpl2 implements UserService {
-    @Override
-    public User get(int id) {
-        return null;
-    }
-
-    @Override
-    public void del(int id) {
-
-    }
-
-    @Override
-    public int updateName(int id, String name) {
-        return 0;
-    }
+public class UserServiceImpl2 {
+//    @Override
+//    public User get(int id) {
+//        return null;
+//    }
+//
+//    @Override
+//    public void del(int id) {
+//
+//    }
+//
+//    @Override
+//    public int updateName(int id, String name) {
+//        return 0;
+//    }
 }

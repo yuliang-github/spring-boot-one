@@ -5,7 +5,9 @@ import com.yl.common.demo.CustomerGetMapping;
 import com.yl.common.demo.User;
 import com.yl.common.service.UserService;
 import com.yl.common.service.impl.ImplService;
+import com.yl.common.service.impl.UserServiceImpl;
 import com.yl.exception.common.MvcException;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +30,8 @@ public class IndexController {
     private UserService userService;
     @Autowired
     private ImplService implService;
+    @Autowired
+    private UserServiceImpl userServiceImpl;
 
     @Value("${server.port}")
     private int port;
@@ -87,5 +91,11 @@ public class IndexController {
     public String auto(){
         implService.print();
         return "auto";
+    }
+
+    @CustomerGetMapping(value = "/spring-boot/tx")
+    public String tx(@Param("id") int id,@Param("name") String name){
+        userServiceImpl.update(id, name);
+        return "tx";
     }
 }

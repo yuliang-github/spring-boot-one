@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
+    //@Transactional
     public int updateName(int id, String name) {
         UserBasicBean user = userBasicBeanMapper.get(id);
 
@@ -40,5 +40,14 @@ public class UserServiceImpl implements UserService {
 
         System.err.println(user);
         return 0;
+    }
+
+    //@Transactional
+    public void update(int id,String name){
+        int ret = userBasicBeanMapper.updateName(id, name);
+        System.err.println(ret);
+        if(id % 2 == 0){
+            throw new RuntimeException("tx exception");
+        }
     }
 }

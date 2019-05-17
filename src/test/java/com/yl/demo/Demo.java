@@ -1,6 +1,8 @@
 package com.yl.demo;
 
 import org.junit.Test;
+import org.springframework.cglib.core.ReflectUtils;
+import org.springframework.util.ReflectionUtils;
 
 import java.math.BigDecimal;
 
@@ -36,6 +38,7 @@ public class Demo {
         for (int i = 0; i < rets.length; i++) {
             System.err.println(i + ":" + rets[i]);
         }
+
     }
 
 }
