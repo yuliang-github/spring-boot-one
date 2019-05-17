@@ -19,7 +19,7 @@ import java.util.Map;
  * @author Alex
  * @since 2019/2/19 15:10
  */
-@Component("exceptionHandler")
+//@Component("exceptionHandler")
 public class DefaultExceptionHandler implements HandlerExceptionResolver {
 
     /**
