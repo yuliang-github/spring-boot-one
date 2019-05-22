@@ -1,6 +1,8 @@
 package com.yl.common.test;
 
+import com.yl.common.demo.CustomerGetMapping;
 import com.yl.common.utils.PackageSanner;
+import jodd.io.findfile.ClassScanner;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.core.type.filter.TypeFilter;
@@ -23,7 +25,7 @@ public class ScannerDemo {
             @Override
             public Set<TypeFilter> addFilter() {
                 Set<TypeFilter> filters = new HashSet<>();
-                filters.add(new AnnotationTypeFilter(RestController.class));
+                filters.add(new AnnotationTypeFilter(CustomerGetMapping.class));
                 return filters;
             }
 
