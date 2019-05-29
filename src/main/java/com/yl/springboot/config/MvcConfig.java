@@ -105,7 +105,7 @@ public class MvcConfig implements WebMvcConfigurer {
         /**
          * 此处的UrlParttern是在controller里面定义的路径,而不是从contextPath开始
          */
-        registry.addInterceptor(interceptor).addPathPatterns("/");
+        registry.addInterceptor(interceptor).addPathPatterns("/**").excludePathPatterns("/static/**","/static-web-inf/**");
     }
 
     /**

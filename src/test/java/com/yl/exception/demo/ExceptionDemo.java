@@ -1,11 +1,9 @@
 package com.yl.exception.demo;
 
+import ognl.Ognl;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Alex
@@ -55,4 +53,24 @@ public class ExceptionDemo {
 
     }
 
+    @Test
+    public void demo_3()throws Exception{
+
+        Thread.currentThread().sleep(10);
+
+        synchronized (this){
+            this.wait(10);
+        }
+
+        Map<String,Integer> map = new TreeMap<>();
+
+        double b = 2345675643234567.333333883333333d;
+
+        System.err.println(b);
+
+        float f = (float) b;
+
+        System.err.println(f);
+
+    }
 }
