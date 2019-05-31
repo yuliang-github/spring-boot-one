@@ -2,6 +2,8 @@ package com.yl.other.test;
 
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
@@ -62,4 +64,12 @@ public class ThreadTest {
 
     }
 
+    @Test
+    public void demo_4(){
+
+        Map<Long,Integer> map = new HashMap<>();
+        System.err.println(map.putIfAbsent(1L, 1));
+        System.err.println(map.putIfAbsent(1L, 2));
+
+    }
 }
