@@ -2,8 +2,11 @@ package com.yl.demo.zk;
 
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.recipes.atomic.AtomicValue;
+import org.apache.curator.framework.recipes.atomic.DistributedAtomicLong;
 import org.apache.curator.framework.recipes.cache.*;
 import org.apache.curator.retry.ExponentialBackoffRetry;
+import org.apache.curator.retry.RetryNTimes;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -92,7 +95,7 @@ public class ZkDemo {
     public void demo_2()throws Exception{
 
         // 第三个参数,是否缓存子节点数据
-        PathChildrenCache pathChildrenCache = new PathChildrenCache(CLIENT, "/demo_one",true);
+        PathChildrenCache pathChildrenCache = new PathChildrenCache(CLIENT, "/zk/count",true);
 
         // 只能监听子节点数据变化
         pathChildrenCache.getListenable().addListener(new PathChildrenCacheListener() {
@@ -121,5 +124,48 @@ public class ZkDemo {
         pathChildrenCache.start();
 
         Thread.sleep(1000*10*60);
+    }
+
+    @Test
+    public void demo_3() throws Exception{
+        Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+               try {
+                   DistributedAtomicLong count = new DistributedAtomicLong(CLIENT, "/zk/count",
+                       new RetryNTimes(10, 100));
+                   while (true){
+                       AtomicValue<Long> increment = count.increment();
+                       System.err.println("pre:" + increment.preValue());
+                       System.err.println("post:" + increment.postValue());
+                       Thread.currentThread().sleep(5000);
+                   }
+               }catch (Exception e){
+
+               }
+            }
+        });
+        Thread t2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    DistributedAtomicLong count = new DistributedAtomicLong(CLIENT, "/zk/count",
+                        new RetryNTimes(10, 100));
+                    while (true){
+                        AtomicValue<Long> increment = count.increment();
+                        System.err.println("pre:" + increment.preValue());
+                        System.err.println("post:" + increment.postValue());
+                        Thread.currentThread().sleep(5000);
+                    }
+                }catch (Exception e){
+
+                }
+            }
+        });
+        t1.start();
+        t2.start();
+        t1.join();
+        t2.join();
+
     }
 }
