@@ -43,8 +43,8 @@ public class UserServiceImpl implements UserService {
     }
 
     //@Transactional
-    public void update(int id,String name){
-        int ret = userBasicBeanMapper.updateName(id, name);
+    public void update(int id,String names){
+        int ret = userBasicBeanMapper.updateName(id, names);
         System.err.println(ret);
         if(id % 2 == 0){
             throw new RuntimeException("tx exception");

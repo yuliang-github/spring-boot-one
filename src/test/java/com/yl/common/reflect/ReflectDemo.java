@@ -1,8 +1,11 @@
 package com.yl.common.reflect;
 
+import com.yl.common.service.impl.UserServiceImpl;
 import org.junit.Test;
+import org.springframework.core.DefaultParameterNameDiscoverer;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.math.BigDecimal;
 import java.util.Arrays;
 
@@ -17,7 +20,7 @@ public class ReflectDemo {
         Class<UserMapperEx> mapperInterface = UserMapperEx.class;
 
         Method[] methods = mapperInterface.getMethods();
-
+        DefaultParameterNameDiscoverer discoverer = new DefaultParameterNameDiscoverer();
         for (Method method : methods) {
             if(mapperInterface.equals(method.getDeclaringClass())){
                 System.err.println("自身方法:" + method.getName());
@@ -28,6 +31,12 @@ public class ReflectDemo {
                     System.err.println(method.getName() + ":" + superInterface);
                 }
             }
+            Parameter[] parameters = method.getParameters();
+            for (Parameter parameter : parameters) {
+                System.err.println(parameter.getName());
+            }
+            String[] parameterNames = discoverer.getParameterNames(method);
+            System.err.println(Arrays.toString(parameterNames));
         }
 
         System.err.println("------------------------------------");
@@ -64,6 +73,18 @@ public class ReflectDemo {
         BigDecimal[] rets = money.divideAndRemainder(BigDecimal.valueOf(50));
 
         System.err.println(Arrays.asList(rets));
+    }
+
+    @Test
+    public void demo_3(){
+
+        DefaultParameterNameDiscoverer discoverer = new DefaultParameterNameDiscoverer();
+        Method[] methods = UserServiceImpl.class.getDeclaredMethods();
+        for (Method method : methods) {
+            String[] parameterNames = discoverer.getParameterNames(method);
+            System.err.println(Arrays.toString(parameterNames));
+        }
+
     }
 
 }
