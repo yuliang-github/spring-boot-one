@@ -2,6 +2,7 @@ package com.yl.other.test;
 
 import com.alibaba.fastjson.JSONObject;
 import com.yl.common.bean.UserBasicBean;
+import com.yl.common.controller.IndexController;
 import com.yl.common.demo.User;
 import com.yl.common.mapper.UserBasicBeanMapper;
 import com.yl.demo.bean.DemoBean;
@@ -26,6 +27,8 @@ import org.junit.Test;
 import org.mvel2.MVEL;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.tags.Param;
 import sun.misc.Launcher;
 
 import javax.activation.DataHandler;
@@ -42,8 +45,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.net.URL;
@@ -660,8 +665,24 @@ public class OtherTest {
             System.err.println(urL.getPath());
         }
 
+
     }
 
+    @Test
+    public void demo_33() throws Exception{
+
+        Class<IndexController> clazz = IndexController.class;
+
+        Method method = clazz.getMethod("tx",int.class,String.class);
+
+        Annotation[] annotations = method.getAnnotations();
+
+        System.err.println(Arrays.toString(annotations));
+
+        Annotation[][] parameterAnnotations = method.getParameterAnnotations();
+
+        System.err.println(parameterAnnotations[0][0] instanceof RequestParam);
+    }
 
 
 }

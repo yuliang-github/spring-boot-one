@@ -7,11 +7,10 @@ import com.yl.common.service.UserService;
 import com.yl.common.service.impl.ImplService;
 import com.yl.common.service.impl.UserServiceImpl;
 import com.yl.exception.common.MvcException;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -94,7 +93,7 @@ public class IndexController {
     }
 
     @CustomerGetMapping(value = "/spring-boot/tx")
-    public String tx(@Param("id") int id,@Param("name") String name){
+    public String tx(@RequestParam("id") int id, @RequestParam("name") String name){
         userServiceImpl.update(id, name);
         return "tx";
     }
